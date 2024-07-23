@@ -394,7 +394,7 @@ window.addEventListener("wheel", (event) => {
             ease : "power2.out",
             scrollTrigger : {
                 trigger : ".work-carousel",
-                start : "top 10%",
+                start : "top 30%",
             },
             onComplete: () => {
                 gsap.to(".work-imgs", {
