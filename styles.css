@@ -23,7 +23,21 @@ body {
     background-color: #171717;
 }
 
+.pre-loader {
+    height: 100vh;
+    width: 100vw;
+    background-color: black;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
 
+.pre-loader p {
+    display: block;
+    font-size: 5rem;
+}
 
 
 .nav-full {

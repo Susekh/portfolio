@@ -348,3 +348,61 @@ gsap.to(".img-gallery-2", {
         toggleActions: "play none none reset",
     }
 });
+
+
+// pre loader
+
+const preLoader = document.querySelector(".pre-loader");
+const loaderText = document.querySelector(".pre-loader-text");
+
+window.onload = function preLoaderFunc() {
+    const loaderContent = ["ଜୟ ଜଗନ୍ନାଥ", "Namoste", "こんにちは", "नमस्ते", "Hola", "Hi"];
+    let currentIndex = 0;
+
+    const intervalId = setInterval(() => {
+        loaderText.textContent = loaderContent[currentIndex];
+        currentIndex = (currentIndex + 1) % loaderContent.length;
+    }, 100);
+
+    setTimeout(() => {
+        clearInterval(intervalId);
+
+        gsap.to(preLoader, {
+            display: "none",
+            y: "-100%",
+            scale: 0.5,
+            ease: "expo.in"
+        });
+        gsap.from(".header-para", {
+            y: 10,
+            opacity: 0,
+            ease: "expo.out",
+            delay: 0.5
+        });
+    }, 1000);
+}
+
+
+
+window.addEventListener("wheel", (event) => {
+    const skewAmount = event.deltaY * 1.2 ;
+    const workImgs = document.querySelectorAll(".work-imgs");
+
+    workImgs.forEach((elem) => {
+        gsap.to(elem, {
+            skewX: skewAmount,
+            ease : "power2.out",
+            scrollTrigger : {
+                trigger : ".work-carousel",
+                start : "top 10%",
+            },
+            onComplete: () => {
+                gsap.to(".work-imgs", {
+                    skewX: 0,
+                    duration: 0.5
+                });
+            }
+        });
+    })
+
+});
