@@ -37,7 +37,7 @@ let revealContainers = document.querySelectorAll(".reveal");
 
 // Define scroll trigger settings and common timeline settings
 const scrollTriggerSettings = {
-    trigger: "nav",
+    trigger: "header",
     start: "top 0",
     scrub: 2,
   };
@@ -63,7 +63,7 @@ revealContainers.forEach((container) => {
   
     // Animate the image inside the container
     tl.from(image, 1.5, {
-      x: "100%",
+      x: "30%",
       scale: 1.3,
       delay: -1.5,
       ease: Power2.out,
