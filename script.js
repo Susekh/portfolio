@@ -18,8 +18,7 @@ gsap.from(".page2 .header-para", {
 
 gsap.from(".page2 .header-heading", {
     x : 550,
-    rotation : 180,
-    ease : 'power1.out',
+    ease : 'power2.out',
     scrollTrigger : {
         trigger : "nav",
         scroller : "body",
@@ -56,17 +55,17 @@ revealContainers.forEach((container) => {
   
     // Animate the container
     tl.from(container, 2, {
-      x: "-120%",
-      ease: Power2.out,
+      y: "120%",
+      ease: "expo.out",
       scrollTrigger: scrollTriggerSettings
     });
   
     // Animate the image inside the container
     tl.from(image, 1.5, {
-      x: "30%",
+      x: "150",
       scale: 1.3,
       delay: -1.5,
-      ease: Power2.out,
+      ease: "expo.out",
       scrollTrigger: scrollTriggerSettings
     });
 });
@@ -370,7 +369,6 @@ window.onload = function preLoaderFunc() {
         gsap.to(preLoader, {
             display: "none",
             y: "-100%",
-            scale: 0.5,
             ease: "expo.in"
         });
         gsap.from(".header-para", {
@@ -385,13 +383,17 @@ window.onload = function preLoaderFunc() {
 
 
 window.addEventListener("wheel", (event) => {
-    const skewAmount = event.deltaY * 1.2 ;
+    const maxSkew = 20;
+    const minSkew = -20;
+    let skewAmount = event.deltaY * 1.2 ;
+    skewAmount = Math.max(minSkew, Math.min(maxSkew, skewAmount));
+
     const workImgs = document.querySelectorAll(".work-imgs");
 
     workImgs.forEach((elem) => {
         gsap.to(elem, {
             skewX: skewAmount,
-            ease : "power2.out",
+            ease : "power1.out",
             scrollTrigger : {
                 trigger : ".work-carousel",
                 start : "top 30%",
@@ -405,4 +407,28 @@ window.addEventListener("wheel", (event) => {
         });
     })
 
+});
+
+// footer animation
+
+gsap.from("#contact", {
+    scrollTrigger : {
+        trigger: "#contact",
+        start: "top 70%", // When the top of the footer is at the bottom of the viewport
+        end: "top 20%", // When the bottom of the footer is at the bottom of the viewport
+        scrub: 2,
+    },
+    borderRadius : "50%",
+    y : 100,
+})
+
+gsap.from(".footer-text-xl", {
+    scrollTrigger: {
+        trigger: "#contact",
+        start: "top bottom", // When the top of the footer is at the bottom of the viewport
+        end: "bottom bottom", // When the bottom of the footer is at the bottom of the viewport
+        scrub: true,
+    },
+    y: 200,
+    duration: 1
 });
