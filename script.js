@@ -1,75 +1,5 @@
 let isNavOpen = false;
 
-
-gsap.from(".page2 .header-para", {
-    y : "-900%",
-    x : "-125%",
-    scale : 2,
-    scrollTrigger : {
-        trigger : "header",
-        scroller : "body",
-        start : "top 0",
-        end : "top -100%",
-        scrub : 1,
-        pin : true
-    }
-})
-
-
-gsap.from(".page2 .header-heading", {
-    x : 550,
-    ease : 'power2.out',
-    scrollTrigger : {
-        trigger : "nav",
-        scroller : "body",
-        start : "top 0",
-        end : "top -100%",
-        scrub : 2
-    }
-})
-
-
-// Image reveal animation
-
-
-let revealContainers = document.querySelectorAll(".reveal");
-
-// Define scroll trigger settings and common timeline settings
-const scrollTriggerSettings = {
-    trigger: "header",
-    start: "top 0",
-    scrub: 2,
-  };
-  
-revealContainers.forEach((container) => {
-    let image = container.querySelector(".reveal > img");
-    let tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: container,
-        toggleActions: "restart none none reset"
-      }
-    });
-  
-    // Set initial visibility of the container
-    tl.set(container, { autoAlpha: 1, scrollTrigger: scrollTriggerSettings });
-  
-    // Animate the container
-    tl.from(container, 2, {
-      y: "120%",
-      ease: "expo.out",
-      scrollTrigger: scrollTriggerSettings
-    });
-  
-    // Animate the image inside the container
-    tl.from(image, 1.5, {
-      x: "150",
-      scale: 1.3,
-      delay: -1.5,
-      ease: "expo.out",
-      scrollTrigger: scrollTriggerSettings
-    });
-});
-
 // portable navbar btn
 const navBtn = document.querySelector(".nav-btn");
 const navHam = document.querySelector(".ri-menu-line");
@@ -98,6 +28,7 @@ navBtn.addEventListener("click", () => {
 
 // Close portable navbar
 crossBtn.addEventListener("click", closeNavBar);
+
 document.addEventListener('click', (event) => {
     const isClickInsideNavbar = portableNavBar.contains(event.target);
     const isClickOnToggleButton = navBtn.contains(event.target);
@@ -125,7 +56,6 @@ navBtn.addEventListener("mouseenter", (event) => {
 
     gsap.to(eventTarg, {
         scale: 1.2,
-        backgroundColor: "#ef4444",
         duration: 0.5,
     });
 });
@@ -135,7 +65,6 @@ navBtn.addEventListener("mouseleave", (event) => {
 
     gsap.to(eventTarg, {
         scale: 1,
-        backgroundColor: "gray",
         duration: 0.5,
         ease: "power1.out"
     });
@@ -147,10 +76,12 @@ gsap.from(".nav-btn", {
     duration: 0.4,
     scrollTrigger: {
         trigger: ".about-me",
-        start: "top 70%",
+        start: "top 50%",
         toggleActions: "play none none reverse",
     }
 });
+
+
 
 
 
@@ -203,124 +134,170 @@ dragHover(navLinks, 0.1, 'power1.out', 0.6);
 
 
 
+//header
+
+// header - img reveal animation
+gsap.from(".img-container > img", {
+    y : -500,
+    ease : "expo.out",
+    duration : 1.5,
+    delay : 1.7
+})
+
+// header -  text scramble
+const initScrambleEffect = (selector) => {
+    const scrambleText = document.querySelector(selector);
+    const originalText = scrambleText.innerText;
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const duration = 0.5; // Fixed duration
+
+    const scramble = (element) => {
+        const length = originalText.length;
+        const scrambleValue = new Array(length).fill('').map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+
+        gsap.to(element, {
+            duration: duration,
+            text: {
+                value: scrambleValue,
+                newClass: "scramble"
+            },
+            ease: "none",
+            onComplete: () => element.innerText = originalText
+        });
+    };
+
+    let isScrambling = false;
+
+    scrambleText.addEventListener('mouseover', () => {
+        if (!isScrambling) {
+            isScrambling = true;
+            scramble(scrambleText);
+
+            setTimeout(() => {
+                isScrambling = false;
+            }, duration * 1000);
+        }
+    });
+};
+
+// Usage
+initScrambleEffect('.scramble');
+initScrambleEffect('.scramble-1');
+initScrambleEffect('.scramble-2');
+
+
+
 
 
 
 // about div
 
-function aboutDivAnimation(){
-    const aboutDiv = document.querySelector(".about-div");
-
-    const tl = gsap.timeline({
-            scrollTrigger: {
-            trigger: aboutDiv,
-            start: "top 75%",
-            end: "top 20%",
-            toggleActions: "play none none reverse",
-            }
-    });
-    
-    tl.from(aboutDiv, {
-        y: 100,
-        duration: 1,
-        opacity: 0,
-    })
-    .from(aboutDiv.querySelector("h3"), {
-        y: 50,
-        duration: 1.5,
-        opacity: 0,
-    }, "-=1");
-};
-
-aboutDivAnimation()
 
 
 
 
 // about text revealing part
 
-gsap.from(".about-text", {
-    y : 50,
-    duration : 0.5,
-    stagger : 0.2,
-    ease : 'power1.out',
-    scrollTrigger : { 
-        trigger : ".about-me",
-        scroller : "body",
-        scrub : 1
-    }
-});
 
-gsap.from(".about-text-2", {
-    y : 50,
-    duration : 0.5,
-    opacity : 0,
-    delay : 0.5,
-    ease : 'power1.out',
-    scrollTrigger : {
-        trigger : ".about-me",
-        start: "top 80%", 
-        end: "top 20%",
-        toggleActions: "play none none reset",
-        scrub : 1
-    }
-})
+
+// gsap.from(".about-text-2", {
+//     y : 100,
+//     duration : 1,
+//     opacity : 0,
+//     ease : 'power1.out',
+//     scrollTrigger : {
+//         trigger : ".about-me",
+//         start: "top 80%", 
+//         end: "top 20%",
+//         toggleActions: "play none none reset",
+//         scrub : true
+//     }
+// })
 
 
 
-function textRevealAnimation(splitText, gsapText) {
+function textScrambleAnimation(splitText, gsapText, delay) {
     const aboutP = document.querySelector(splitText);
     const aboutText = aboutP.textContent.trim();
     const words = aboutText.split(/\s+/);
     aboutP.innerHTML = words.map(word => `<span class="span-line"><span>${word} </span></span>`).join(" ");
 
-    gsap.from(gsapText, {
-        y: 100,
-        duration: 0.3,
-        stagger: 0.01,
-        scrollTrigger: {
-            trigger: ".span-line",
-            start: "top 80%", 
-            end: "top 20%",
-            toggleActions: "play none none reset",
-        }
-    });
-};
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-textRevealAnimation(".about-text", ".about-text > span > span");
+    // Function to scramble text
+    const scrambleText = (element, duration) => {
+        const originalText = element.innerText; // Store original text
+        const length = originalText.length;
+        const scrambleValue = new Array(length).fill('').map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+
+        gsap.to(element, {
+            duration: duration,
+            text: scrambleValue,
+            ease: "none",
+            delay : delay,
+            onComplete: () => {
+                gsap.to(element, {
+                    duration: 0.5,
+                    text: originalText,
+                    ease: "none"
+                });
+            }
+        });
+    };
+
+    ScrollTrigger.create({
+        trigger: splitText,
+        start: "top 80%", 
+        end: "top 20%",
+        onEnter: () => {
+            // Scramble each span on scroll
+            document.querySelectorAll(gsapText).forEach(span => {
+                scrambleText(span, 0.3);
+            });
+        },
+        toggleActions: "play none none reset",
+    });
+}
+
+// Call the function with the selectors
+textScrambleAnimation(".about-text", ".about-text > span > span", 0);
+textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
+
+
 
 
 
 // work animation
 
-gsap.from(".work-div", {
-    x : '100%',
-    scrollTrigger: {
-        trigger: "#work",
-        start: "top 60%",
-        end: "top 30%",
-        scrub: 1,
-        toggleActions: "play none none reset",
-    }
-});
+// gsap.from(".work-div", {
+//     x : '100%',
+//     borderRadius : "10rem",
+//     scrollTrigger: {
+//         trigger: "#work",
+//         start: "top 60%",
+//         end: "top 30%",
+//         scrub: 1,
+//         toggleActions: "play none none reset",
+//     }
+// });
 
-gsap.fromTo(".work-carousel", 
-    { 
-        x: "50%",
-    },
-    { 
-        x: "-130%",
-        ease: "power1.out",
-        scrollTrigger: {
-            trigger: ".work-div",
-            start: "top 15%",
-            end: "top -100%",
-            scrub: 1,
-            pin: true,
-            toggleActions: "play none none reset",
-        }
-    }
-);
+// gsap.fromTo(".work-carousel", 
+//     { 
+//         x: "50%",
+//     },
+//     { 
+//         x: "-130%",
+//         ease: "power1.out",
+//         scrollTrigger: {
+//             trigger: ".work-div",
+//             start: "top 15%",
+//             end: "top -100%",
+//             scrub: 1,
+//             pin: true,
+//             toggleActions: "play none none reset",
+//         }
+//     }
+// );
 
 
 // img gallery part
@@ -380,55 +357,166 @@ window.onload = function preLoaderFunc() {
     }, 1000);
 }
 
+// work imgs animation
+// 
 
+// function debounce(func, wait) {
+//     let timeout;
+//     return function executedFunction(...args) {
+//         const later = () => {
+//             clearTimeout(timeout);
+//             func(...args);
+//         };
+//         clearTimeout(timeout);
+//         timeout = setTimeout(later, wait);
+//     };
+// }
+// let ticking = false;
+// const wheelHandler = (event) => {
+//     window.addEventListener("wheel", (event) => {
+//         if (!ticking) {
+//             window.requestAnimationFrame(() => {
+//                 const maxSkew = 15;
+//                 const minSkew = -15;
+//                 let skewAmount = event.deltaY * 1.2;
+//                 skewAmount = Math.max(minSkew, Math.min(maxSkew, skewAmount));
+    
+//                 const workImgs = document.querySelectorAll(".work-imgs");
+    
+//                 workImgs.forEach((elem) => {
+//                     gsap.to(elem, {
+//                         skewX: skewAmount,
+//                         ease: "power1.out",
+//                         scrollTrigger: {
+//                             trigger: ".work-carousel",
+//                             start: "top 30%",
+//                         },
+//                         onComplete: () => {
+//                             gsap.to(".work-imgs", {
+//                                 skewX: 0,
+//                                 duration: 0.5
+//                             });
+//                         }
+//                     });
+//                 });
+    
+//                 ticking = false;
+//             });
+    
+//             ticking = true;
+//         }
+//     });
+// };
+
+// const debouncedWheelHandler = debounce(wheelHandler, 100);
+
+// window.addEventListener("wheel", debouncedWheelHandler);
+
+
+
+
+
+// dark and light mode
+
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleButton = document.getElementById('theme-toggle');
+    
+    // Check for saved user preference
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark-mode') {
+        document.body.classList.add('dark-mode');
+    }
+
+    toggleButton.addEventListener('click', () => {
+        if (document.body.classList.contains('dark-mode')) {
+            document.body.classList.remove('dark-mode');
+            localStorage.setItem('theme', ''); // Remove preference
+        } else {
+            document.body.classList.add('dark-mode');
+            localStorage.setItem('theme', 'dark-mode'); // Save preference
+        }
+    });
+});
+
+
+
+
+// about part gsap animation
+
+// Data for images
+const contentData = [
+    { imgSrc: "./imgs/Screenshot_20240420_061046.png", title : "TEAMSYNC", pg : "01" },
+    { imgSrc: "./imgs/Screenshot_20240420_011401.png", title : "CAFFEE", pg : "02" },
+    { imgSrc: "./imgs/Screenshot_20240421_084352.png", title : "WALDO", pg : "03" }
+];
+
+let currentIndex = -1;
+
+// Function to update the content based on the current index
+function updateContent(index) {
+    const content = contentData[index]
+    if (index === currentIndex) return;
+    const TitleElem = document.querySelector(".work-div-1  h3");
+    const pgElem = document.querySelector(".work-div-1 p")
+    const imgElement = document.querySelector('.work-img-div img');
+        // GSAP animation for fading out the old image and fading in the new one
+        gsap.to(imgElement, { opacity: 0, duration: 0.3, onComplete: () => {
+            imgElement.src = content.imgSrc;
+            TitleElem.innerText = content.title;
+            pgElem .innerText= `P / ${content.pg}`;
+            gsap.to(imgElement, { opacity: 1, duration: 0.3});
+        }});
+
+    currentIndex = index;
+}
+
+// Function to handle scroll events
+function handleScroll() {
+    const scrollY = window.scrollY;
+
+    if (scrollY < 2083) {
+        updateContent(0);
+    } else if (scrollY >= 2083 && scrollY < 2416) {
+        updateContent(1);
+    } else if (scrollY >= 2416) {
+        updateContent(2);
+    }
+}
+
+window.addEventListener("scroll", handleScroll);
+
+// Initialize ScrollTrigger and stack
+ScrollTrigger.create({
+    trigger: "#work",
+    start: "top top",
+    end: "+=1000", // Adjust the scroll distance as needed
+    pin: true,
+});
+
+gsap.to(".work-scroll-bar", {
+    x : 0,
+    scrollTrigger : {
+        trigger : "#work",
+        start : "top top",
+        end : "bottom -50%",
+        scrub : 2
+    }
+});
 
 window.addEventListener("wheel", (event) => {
-    const maxSkew = 20;
-    const minSkew = -20;
-    let skewAmount = event.deltaY * 1.2 ;
-    skewAmount = Math.max(minSkew, Math.min(maxSkew, skewAmount));
-
-    const workImgs = document.querySelectorAll(".work-imgs");
-
-    workImgs.forEach((elem) => {
-        gsap.to(elem, {
-            skewX: skewAmount,
-            ease : "power1.out",
-            scrollTrigger : {
-                trigger : ".work-carousel",
-                start : "top 30%",
-            },
-            onComplete: () => {
-                gsap.to(".work-imgs", {
-                    skewX: 0,
-                    duration: 0.5
-                });
-            }
+    if(event.deltaY > 0) {
+        gsap.to(".carousel-container", {
+            transform : "translateX(-200%)",
+            duration: 4,
+            repeat : -1,
+            ease : "none",
+        })
+    } else {
+        gsap.to(".carousel-container", {
+            transform : "translateX(0%)",
+            duration: 4,
+            repeat : -1,
+            ease : "none",
         });
-    })
-
-});
-
-// footer animation
-
-gsap.from("#contact", {
-    scrollTrigger : {
-        trigger: "#contact",
-        start: "top 70%", // When the top of the footer is at the bottom of the viewport
-        end: "top 20%", // When the bottom of the footer is at the bottom of the viewport
-        scrub: 2,
-    },
-    borderRadius : "50%",
-    y : 100,
+    }
 })
-
-gsap.from(".footer-text-xl", {
-    scrollTrigger: {
-        trigger: "#contact",
-        start: "top bottom", // When the top of the footer is at the bottom of the viewport
-        end: "bottom bottom", // When the bottom of the footer is at the bottom of the viewport
-        scrub: true,
-    },
-    y: 200,
-    duration: 1
-});
