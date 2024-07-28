@@ -722,7 +722,7 @@ footer {
 
 @media (max-width: 768px) {
     * {
-        font-size: 11px;
+        font-size: 14px;
         padding: 0;
     }
 
@@ -742,11 +742,9 @@ footer {
 
 
 @media (max-width: 1024px) {
-
-
-    .nav-full {
+    .nav-full > div {
         display: none;
-    }
+    } 
 
     header {
         display: flex;
@@ -794,8 +792,9 @@ footer {
     }
 
     .work-div {
-        display: grid;
-        grid-template-columns: 1fr;
+        display:   flex;
+        flex-direction: column;
+        gap: 4rem;
     }
 
     .work-div-2-txts {

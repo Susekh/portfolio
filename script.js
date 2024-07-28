@@ -83,13 +83,6 @@ gsap.from(".nav-btn", {
 
 
 
-
-
-// background gradient color 2. pre loader 3. new nav 
-
-// moving orbs
-
-
 // nav full mousehover
 const headings = document.querySelectorAll(".nav-full > div > a");
 
@@ -149,7 +142,7 @@ const initScrambleEffect = (selector) => {
     const scrambleText = document.querySelector(selector);
     const originalText = scrambleText.innerText;
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const duration = 0.5; // Fixed duration
+    const duration = 0.5;
 
     const scramble = (element) => {
         const length = originalText.length;
@@ -180,40 +173,10 @@ const initScrambleEffect = (selector) => {
     });
 };
 
-// Usage
+
 initScrambleEffect('.scramble');
 initScrambleEffect('.scramble-1');
 initScrambleEffect('.scramble-2');
-
-
-
-
-
-
-// about div
-
-
-
-
-
-// about text revealing part
-
-
-
-// gsap.from(".about-text-2", {
-//     y : 100,
-//     duration : 1,
-//     opacity : 0,
-//     ease : 'power1.out',
-//     scrollTrigger : {
-//         trigger : ".about-me",
-//         start: "top 80%", 
-//         end: "top 20%",
-//         toggleActions: "play none none reset",
-//         scrub : true
-//     }
-// })
-
 
 
 function textScrambleAnimation(splitText, gsapText, delay) {
@@ -265,67 +228,6 @@ textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
 
 
 
-
-
-// work animation
-
-// gsap.from(".work-div", {
-//     x : '100%',
-//     borderRadius : "10rem",
-//     scrollTrigger: {
-//         trigger: "#work",
-//         start: "top 60%",
-//         end: "top 30%",
-//         scrub: 1,
-//         toggleActions: "play none none reset",
-//     }
-// });
-
-// gsap.fromTo(".work-carousel", 
-//     { 
-//         x: "50%",
-//     },
-//     { 
-//         x: "-130%",
-//         ease: "power1.out",
-//         scrollTrigger: {
-//             trigger: ".work-div",
-//             start: "top 15%",
-//             end: "top -100%",
-//             scrub: 1,
-//             pin: true,
-//             toggleActions: "play none none reset",
-//         }
-//     }
-// );
-
-
-// img gallery part
-
-gsap.to(".img-gallery-1", {
-    x : 20,
-    scrollTrigger : {
-        trigger : ".img-gallery-1",
-        start: "top 70%",
-        end: "top -50%",
-        scrub: 1,
-        toggleActions: "play none none reset",
-    }
-});
-
-
-gsap.to(".img-gallery-2", {
-    x : -80,
-    scrollTrigger : {
-        trigger : ".img-gallery-1",
-        start: "top 70%",
-        end: "top -100%",
-        scrub: 1,
-        toggleActions: "play none none reset",
-    }
-});
-
-
 // pre loader
 
 const preLoader = document.querySelector(".pre-loader");
@@ -356,64 +258,6 @@ window.onload = function preLoaderFunc() {
         });
     }, 1000);
 }
-
-// work imgs animation
-// 
-
-// function debounce(func, wait) {
-//     let timeout;
-//     return function executedFunction(...args) {
-//         const later = () => {
-//             clearTimeout(timeout);
-//             func(...args);
-//         };
-//         clearTimeout(timeout);
-//         timeout = setTimeout(later, wait);
-//     };
-// }
-// let ticking = false;
-// const wheelHandler = (event) => {
-//     window.addEventListener("wheel", (event) => {
-//         if (!ticking) {
-//             window.requestAnimationFrame(() => {
-//                 const maxSkew = 15;
-//                 const minSkew = -15;
-//                 let skewAmount = event.deltaY * 1.2;
-//                 skewAmount = Math.max(minSkew, Math.min(maxSkew, skewAmount));
-    
-//                 const workImgs = document.querySelectorAll(".work-imgs");
-    
-//                 workImgs.forEach((elem) => {
-//                     gsap.to(elem, {
-//                         skewX: skewAmount,
-//                         ease: "power1.out",
-//                         scrollTrigger: {
-//                             trigger: ".work-carousel",
-//                             start: "top 30%",
-//                         },
-//                         onComplete: () => {
-//                             gsap.to(".work-imgs", {
-//                                 skewX: 0,
-//                                 duration: 0.5
-//                             });
-//                         }
-//                     });
-//                 });
-    
-//                 ticking = false;
-//             });
-    
-//             ticking = true;
-//         }
-//     });
-// };
-
-// const debouncedWheelHandler = debounce(wheelHandler, 100);
-
-// window.addEventListener("wheel", debouncedWheelHandler);
-
-
-
 
 
 // dark and light mode
@@ -470,53 +314,69 @@ function updateContent(index) {
     currentIndex = index;
 }
 
+// Function to determine device type and set thresholds
+function getThresholds() {
+    const viewportHeight = window.innerHeight;
+
+    let threshold1, threshold2;
+
+    if (window.matchMedia("(max-width: 767px)").matches) {
+        // Mobile devices
+        threshold1 = viewportHeight * 2;
+        threshold2 = viewportHeight * 3;
+    } else if (window.matchMedia("(min-width: 768px) and (max-width: 1024px)").matches) {
+        // Tablets
+        threshold1 = viewportHeight * 2.5;
+        threshold2 = viewportHeight * 4;
+    } else {
+        // PCs
+        threshold1 = viewportHeight * 3;
+        threshold2 = viewportHeight * 4;
+    }
+
+    return { threshold1, threshold2 };
+}
+
 // Function to handle scroll events
 function handleScroll() {
     const scrollY = window.scrollY;
+    const { threshold1, threshold2 } = getThresholds();
 
-    if (scrollY < 2083) {
+    if (scrollY < threshold1) {
         updateContent(0);
-    } else if (scrollY >= 2083 && scrollY < 2416) {
+    } else if (scrollY >= threshold1 && scrollY < threshold2) {
         updateContent(1);
-    } else if (scrollY >= 2416) {
+    } else if (scrollY >= threshold2) {
         updateContent(2);
     }
 }
 
+// Initial call to handleScroll to set the correct content based on initial scroll position
+window.addEventListener("load", handleScroll);
+
+// Adding event listener for scroll
 window.addEventListener("scroll", handleScroll);
 
-// Initialize ScrollTrigger and stack
 ScrollTrigger.create({
     trigger: "#work",
     start: "top top",
-    end: "+=1000", // Adjust the scroll distance as needed
+    end: () => "+=" + window.innerHeight * 3,
     pin: true,
+    scrub : true,
 });
+
+// Handle resizing for responsive adjustments
+window.addEventListener("resize", () => {
+    ScrollTrigger.refresh();
+});
+
 
 gsap.to(".work-scroll-bar", {
     x : 0,
     scrollTrigger : {
         trigger : "#work",
         start : "top top",
-        end : "bottom -50%",
+        end: () => "+=" + window.innerHeight * 3,
         scrub : 2
     }
 });
-
-window.addEventListener("wheel", (event) => {
-    if(event.deltaY > 0) {
-        gsap.to(".carousel-container", {
-            transform : "translateX(-200%)",
-            duration: 4,
-            repeat : -1,
-            ease : "none",
-        })
-    } else {
-        gsap.to(".carousel-container", {
-            transform : "translateX(0%)",
-            duration: 4,
-            repeat : -1,
-            ease : "none",
-        });
-    }
-})
