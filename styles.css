@@ -840,6 +840,10 @@ footer {
     #work a {
         display: none;
     }
+
+    footer {
+        padding: 0;
+    }
 }
 
 
