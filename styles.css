@@ -29,7 +29,7 @@ body.dark-mode {
     --header-background: #111111;
     --img-card-color : rgba(255, 255, 255, 0.664);
     --table-nth-color : #0c0a0994;
-    --lines-color-light : ;
+    --lines-color-light : #44403c40;
 }
 
 ::-moz-selection { /* Code for Firefox */
@@ -747,6 +747,11 @@ footer {
 
 
 @media (max-width: 1024px) {
+
+    .nav-full div {
+        display: none;
+    }
+
     header {
         display: flex;
         justify-content: center;
