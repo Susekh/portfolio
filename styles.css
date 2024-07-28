@@ -747,10 +747,6 @@ footer {
 
 
 @media (max-width: 1024px) {
-    .nav-full > div {
-        display: none;
-    } 
-
     header {
         display: flex;
         justify-content: center;
