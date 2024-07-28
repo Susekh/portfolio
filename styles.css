@@ -726,7 +726,12 @@ footer {
         padding: 0;
     }
 
+    .img-container {
+        max-height: 170px;
+    }
+
     .img-container img {
+ 
         max-width: 220px;
     }
 
@@ -787,6 +792,10 @@ footer {
     .header-para-1 {
         padding: 0;
     }
+
+    #about {
+        padding: 1rem;
+    }
     .work-container {
         padding: 1rem;
     }
@@ -827,14 +836,19 @@ footer {
     .hire-me-container {
         justify-content: center;
         gap: 2rem;
-        padding: 2rem;
+        padding: 6rem 2rem;
     }
-
-    
 
     .hire-me-container a {
         max-width: 100px;
         max-height: 50px;
+    }
+
+    .idName-container {
+        flex-wrap: wrap;
+    }
+    .emailId-div {
+        width: 100%;
     }
 
     #work a {
@@ -842,7 +856,7 @@ footer {
     }
 
     footer {
-        padding: 0;
+        padding: 2rem 1rem;
     }
 }
 

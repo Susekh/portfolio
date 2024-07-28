@@ -322,11 +322,11 @@ function getThresholds() {
 
     if (window.matchMedia("(max-width: 767px)").matches) {
         // Mobile devices
-        threshold1 = viewportHeight * 2;
-        threshold2 = viewportHeight * 3;
+        threshold1 = viewportHeight * 3;
+        threshold2 = viewportHeight * 4;
     } else if (window.matchMedia("(min-width: 768px) and (max-width: 1024px)").matches) {
         // Tablets
-        threshold1 = viewportHeight * 2.5;
+        threshold1 = viewportHeight * 3;
         threshold2 = viewportHeight * 4;
     } else {
         // PCs
