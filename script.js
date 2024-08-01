@@ -308,7 +308,7 @@ function updateContent(index) {
             imgElement.src = content.imgSrc;
             TitleElem.innerText = content.title;
             pgElem .innerText= `P / ${content.pg}`;
-            gsap.to(imgElement, { opacity: 1, duration: 0.3});
+            gsap.to(imgElement, { opacity: 1, duration: 0.6});
         }});
 
     currentIndex = index;

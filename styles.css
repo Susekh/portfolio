@@ -5,7 +5,7 @@
 
 /* Define default light mode styles */
 :root {
-    --background-color: #fef3c785;
+    --background-color: #fef3c754;
     --text-color: gray;
     --button-background: #ffffff;
     --button-text-color: #000000;
@@ -14,14 +14,12 @@
     --header-background: #ffffff;
     --img-card-color : rgba(0, 0, 0, 0.556);
     --custom-red : #991b1b;
-    --table-nth-color : #fef3c778;
+    --table-nth-color : #fef3c749;
     --lines-color-light : #44403c40;
     --orb-red-1 : #7f1d1dbd;
     --orb-red-2 : #f974168a;
 }
-
-/* Define dark mode styles */
-body.dark-mode {
+.dark-mode {
     --background-color: #171717;
     --text-color: gray;
     --button-background: #333333;
@@ -35,15 +33,16 @@ body.dark-mode {
     --orb-red-2 : #991b1b;
 }
 
-::-moz-selection { /* Code for Firefox */
+
+::-moz-selection {
     color: #fef3c7;
     background: var(--custom-red);
-  }
+}
   
-  ::selection {
+::selection {
     color: #fef3c7;
     background: var(--custom-red);
-  }
+}
 
 * {
     margin  : 0;
@@ -56,16 +55,12 @@ html,
 body {
     height: 100%;
     width: 100%;
+}
+
+body {
     background-color: var(--background-color);
     color: var(--text-color);
 }
-
-
-.hydrated {
-    background-color: var(--footer-background);
-    color: var(--text-color); /* Ensure footer uses the correct background variable */
-}
-
 
 .pre-loader {
     height: 100vh;
@@ -195,6 +190,7 @@ body {
     color: var(--img-card-color);
     align-items: center;
     font-weight: 600;
+    max-height: 550px;
 }
 
 .img-card-section-1 {
@@ -362,6 +358,7 @@ header {
     text-align: left;
     overflow: hidden;
     justify-content: space-around;
+    height: 100vh;
 }
 
 .page1 {
@@ -376,7 +373,7 @@ header {
     font-family: "Anton SC", sans-serif;
     font-size: 6rem;
     line-height: 0.93;
-    color: #991b1b;
+    color: var(--custom-red);
     
     animation: fadeIn 0.7s ease-in-out;
     animation-delay: 1.4s;
