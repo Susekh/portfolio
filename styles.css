@@ -761,7 +761,7 @@ footer {
 
 @media (max-width: 1024px) {
 
-    .nav-full{
+    .nav-full > div{
         display: none;
     }
 
@@ -777,11 +777,6 @@ footer {
     .header-para-1 {
         margin: 3rem;
     }
-
-    .header-heading {
-        font-size: 10rem;
-    }
-
 
     .page1 {
         border: 0;
