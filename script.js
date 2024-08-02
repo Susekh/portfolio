@@ -289,9 +289,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Data for images
 const contentData = [
-    { imgSrc: "./imgs/Screenshot_20240420_061046.png", title : "TEAMSYNC", pg : "01" },
-    { imgSrc: "./imgs/Screenshot_20240420_011401.png", title : "CAFFEE", pg : "02" },
-    { imgSrc: "./imgs/Screenshot_20240421_084352.png", title : "WALDO", pg : "03" }
+    { imgSrc: "./imgs/Screenshot_20240420_061046.png", title : "TEAMSYNC", pg : "01", index : "3" },
+    { imgSrc: "./imgs/Screenshot_20240420_011401.png", title : "CAFFEE", pg : "02" , index : "4"},
+    { imgSrc: "./imgs/Screenshot_20240421_084352.png", title : "WALDO", pg : "03", index : "5" },
 ];
 
 let currentIndex = -1;
@@ -380,3 +380,24 @@ gsap.to(".work-scroll-bar", {
         scrub : 2
     }
 });
+
+
+gsap.from("#about", {
+    borderRadius : "50%",
+    scrollTrigger : {
+        trigger : "#about",
+        start : "top 80%",
+        end : "top 20%",
+        scrub : 1
+    }
+})
+
+gsap.from(".final-section-quote", {
+    scale : 1.5,
+    opacity: 0,
+    scrollTrigger : {
+        trigger : ".final-section",
+        start : "top 70%",
+        scrub : 1,
+    }
+})

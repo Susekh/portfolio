@@ -5,7 +5,7 @@
 
 /* Define default light mode styles */
 :root {
-    --background-color: #fef3c754;
+    --background-color: #fef3c765;
     --text-color: gray;
     --button-background: #ffffff;
     --button-text-color: #000000;
@@ -468,8 +468,9 @@ tr:nth-child(even) {
 
 #about {
     padding: 4rem;
-    margin-top: 8rem;
+    margin: 8rem 0;
     border-top: 2px solid var(--lines-color-light);
+    overflow: hidden;
 }
 
 .about-div {
@@ -501,7 +502,6 @@ tr:nth-child(even) {
 
 #work {
     border-top: 2px solid var(--lines-color-light);
-    height: 100vh;
 }
 
 .work-container {
@@ -617,6 +617,25 @@ tr:nth-child(even) {
 .button-animation:hover::before {
     width: 180%;
 }
+
+
+.final-section {
+    border-top: 1px solid var(--lines-color-light);
+}
+
+.final-section-quote-container {
+    text-align: center;
+    padding: 4rem 0;
+}
+
+
+
+.final-section-quote {
+    text-transform: uppercase;
+    display: inline-block;
+    font-size: 4rem;
+}
+
 
 
 
@@ -741,9 +760,6 @@ footer {
         max-width: 220px;
     }
 
-    .header-visit-section {
-        display: none;
-    }
 
     td {
         padding: 2rem;
@@ -771,7 +787,6 @@ footer {
         justify-content: center;
         align-content: center;
         flex-wrap: wrap;
-        padding: 1rem;
     }
 
     .header-para-1 {
@@ -785,6 +800,7 @@ footer {
     .page2 {
         display: flex;
         flex-direction: column;
+        text-align: center;
     }
 
 
@@ -853,6 +869,15 @@ footer {
 
     #work a {
         display: none;
+    }
+
+    .final-section-quote-container {
+        padding: 2rem 0;
+    }
+
+    .final-section-quote {
+        font-size: 2rem;
+        padding: 1rem;
     }
 
     footer {
