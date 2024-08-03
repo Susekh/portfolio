@@ -382,8 +382,8 @@ gsap.to(".work-scroll-bar", {
 });
 
 
-gsap.from("#about", {
-    borderRadius : "50%",
+gsap.from(".about-div", {
+    scale : 0.9,
     scrollTrigger : {
         trigger : "#about",
         start : "top 80%",
@@ -399,5 +399,33 @@ gsap.from(".final-section-quote", {
         trigger : ".final-section",
         start : "top 70%",
         scrub : 1,
+    }
+});
+
+gsap.from(".final-section-gallery", {
+    y : 300,
+    scrollTrigger : {
+        trigger : ".final-section-quote",
+        start : "top 50%",
+        end : "top 20%",
+        scrub : 1,
+    }
+});
+
+gsap.to(".gallery-1", {
+    x : -150,
+    scrollTrigger : {
+        trigger : ".final-section-gallery",
+        start : "top bottom",
+        scrub : 1
+    }
+});
+
+gsap.from(".gallery-2", {
+    x : -150,
+    scrollTrigger : {
+        trigger : ".final-section-gallery",
+        start : "top bottom",
+        scrub : 1
     }
 })

@@ -463,14 +463,13 @@ table tr th:last-child {
 
 tr:nth-child(even) {
     background: radial-gradient(circle, var(--table-nth-color), var(--table-nth-color) 50%, transparent 100%);
-
-  }
+}
 
 #about {
     padding: 4rem;
     margin: 8rem 0;
-    border-top: 2px solid var(--lines-color-light);
     overflow: hidden;
+    border-top: 2px solid var(--lines-color-light);
 }
 
 .about-div {
@@ -621,11 +620,13 @@ tr:nth-child(even) {
 
 .final-section {
     border-top: 1px solid var(--lines-color-light);
+    padding-bottom: 4rem;
 }
 
 .final-section-quote-container {
     text-align: center;
     padding: 4rem 0;
+    margin: 4rem 0;
 }
 
 
@@ -636,6 +637,21 @@ tr:nth-child(even) {
     font-size: 4rem;
 }
 
+.final-section-gallery {
+    overflow: hidden;
+    display: grid;
+    gap: 2rem;
+}
+
+.gallery {
+    display: flex;
+    gap: 2rem;
+}
+
+.final-section-gallery img {
+    width: 24em;
+    border: 24px solid var(--lines-color-light);
+}
 
 
 
