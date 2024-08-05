@@ -787,6 +787,11 @@ footer {
     .work-div-2-txts {
         max-width: 100%;
     }
+
+    .final-section-gallery img {
+        width: 12rem;
+        border: 12px solid var(--lines-color-light);
+    }
     
 }
 
