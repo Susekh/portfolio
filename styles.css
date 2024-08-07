@@ -28,7 +28,7 @@
     --nav-background: #222222;
     --nav-border: rgba(255, 255, 255, 0.422);
     --header-background: #111111;
-    --img-card-color : rgba(255, 255, 255, 0.664);
+    --img-card-color : rgba(255, 255, 255, 0.504);
     --table-nth-color : #0c0a0994;
     --lines-color-light : #44403c40;
     --custom-red : #0e7490;
@@ -119,7 +119,7 @@ body {
 }
 
 .nav-btn {
-    color: var(--background-color);
+    color: white;
     padding: 2rem;
     display: flex;
     justify-content: center;
@@ -404,7 +404,7 @@ header {
 .header-para-1 {
     padding-left: 8rem;
     max-width: 35rem;
-    color: #78716c;
+    color: var(--text-color);
 }
 
 .scramble {
@@ -437,7 +437,7 @@ header {
     border-radius: 0.5rem;
     border: 2px solid rgba(128, 128, 128, 0.618);
     font-size: 2rem;
-    color: gray;
+    color: var(--text-color);
     font-weight: 600;
     cursor: pointer;
     text-decoration: none;
@@ -795,6 +795,10 @@ footer {
     * {
         font-size: 14px;
         padding: 0;
+    }
+
+    .code-box-animated {
+        display: none;
     }
 
     .nav-portable {

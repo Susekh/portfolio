@@ -2,6 +2,7 @@ let isNavOpen = false;
 
 // portable navbar btn
 const navBtn = document.querySelector(".nav-btn");
+const moreBtn = document.querySelectorAll(".more-projects-div > button");
 const navHam = document.querySelector(".ri-menu-line");
 const portableNavBar = document.querySelector(".nav-portable");
 const crossBtn = document.querySelector(".nav-portable-close");
@@ -50,25 +51,23 @@ function closeNavBar() {
     }
 }
 
-// Hover effects on nav button
-navBtn.addEventListener("mouseenter", (event) => {
-    const eventTarg = event.target;
-
-    gsap.to(eventTarg, {
-        scale: 1.2,
-        duration: 0.5,
+// Hover effect on nav-portable button
+function scaleAnimation(element, scaleTo, duration, ease = "none") {
+    gsap.to(element, {
+        scale: scaleTo,
+        duration: duration,
+        ease: ease
     });
+}
+
+navBtn.addEventListener("mouseenter", (event) => {
+    scaleAnimation(event.target, 1.2, 0.5);
 });
 
 navBtn.addEventListener("mouseleave", (event) => {
-    const eventTarg = event.target;
-
-    gsap.to(eventTarg, {
-        scale: 1,
-        duration: 0.5,
-        ease: "power1.out"
-    });
+    scaleAnimation(event.target, 1, 0.5, "power1.out");
 });
+
 
 // Animating nav button on scroll
 gsap.from(".nav-btn", {
@@ -91,10 +90,10 @@ gsap.to(".code-box-animated", {
 
 
 
-// nav full mousehover
+// nav full mousehover animation
 const headings = document.querySelectorAll(".nav-full > div > a");
 
-function dragHover(headings, intensity, ease, duration) {
+function dragHover(headings, intensity, ease, duration, scale) {
     headings.forEach((heading) => {
         heading.addEventListener("mouseover", () => {
             heading.addEventListener("mousemove", onMouseMove);
@@ -106,7 +105,7 @@ function dragHover(headings, intensity, ease, duration) {
                 x: 0,
                 y: 0,
                 ease : '',
-                scale: 1,
+                scale: scale,
                 duration: duration
             });
         });
@@ -128,10 +127,12 @@ function dragHover(headings, intensity, ease, duration) {
     }
 };
 
-dragHover(headings, 0.7, 'power1.out', 1);
+
+dragHover(headings, 0.7, 'power1.out', 1, 1);
+dragHover(moreBtn, 0.6, 'power1.out', 1, 1);
 
 const navLinks = document.querySelectorAll(".nav-portable-nav-links > a");
-dragHover(navLinks, 0.1, 'power1.out', 0.6);
+dragHover(navLinks, 0.1, 'power1.out', 0.6, 1);
 
 
 
