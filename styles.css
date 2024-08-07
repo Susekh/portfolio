@@ -5,19 +5,20 @@
 
 /* Define default light mode styles */
 :root {
-    --background-color: #fef3c765;
-    --text-color: gray;
+    --background-color: #fff;
+    --text-color: rgba(0, 0, 0, 0.592);
     --button-background: #ffffff;
     --button-text-color: #000000;
     --nav-background: #f5f5f5;
     --nav-border: rgba(0, 0, 0, 0.2);
     --header-background: #ffffff;
     --img-card-color : rgba(0, 0, 0, 0.556);
-    --custom-red : #991b1b;
-    --table-nth-color : #fef3c749;
+    --custom-red : #155e75;
+    --table-nth-color : #e0f2fe4a;
     --lines-color-light : #44403c40;
-    --orb-red-1 : #7f1d1dbd;
-    --orb-red-2 : #f974168a;
+    --orb-red-1 : #67e8f98d;
+    --orb-red-2 : #06b5d44c;
+    --orb-3 : #99f6e4;
 }
 .dark-mode {
     --background-color: #171717;
@@ -30,10 +31,21 @@
     --img-card-color : rgba(255, 255, 255, 0.664);
     --table-nth-color : #0c0a0994;
     --lines-color-light : #44403c40;
-    --orb-red-2 : #991b1b;
+    --custom-red : #0e7490;
 }
 
+/* custom scroll bar */
+body::-webkit-scrollbar {
+    width: 4px;               /* width of the entire scrollbar */
+  }
+  
+  
+  body::-webkit-scrollbar-thumb {
+    background-color: var(--custom-red);
+  }
 
+
+/* custom selection */
 ::-moz-selection {
     color: #fef3c7;
     background: var(--custom-red);
@@ -63,8 +75,8 @@ body {
 }
 
 .pre-loader {
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     background-color: #262626;
     position: fixed;
     display: flex;
@@ -107,14 +119,14 @@ body {
 }
 
 .nav-btn {
-    border: 2px solid var(--custom-red);
-    color: var(--custom-red);
-    padding: 1rem;
+    color: var(--background-color);
+    padding: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9;
-    border-radius: 0.5rem;
+    background-color: var(--custom-red);
+    border-radius: 50%;
     position: fixed;
     top: 4%;
     right: 4%;
@@ -336,7 +348,7 @@ body {
 }
 
 .bg-purple{
-    background-color: #b9211cdc;
+    background-color: var(--orb-3);
 }
 
 #theme-toggle {
@@ -358,7 +370,12 @@ header {
     text-align: left;
     overflow: hidden;
     justify-content: space-around;
-    height: 100vh;
+}
+
+.code-box-animated {
+    font-size: 5rem;
+    color: #155f75a8;
+    display: inline-block;
 }
 
 .page1 {
@@ -654,6 +671,25 @@ tr:nth-child(even) {
 }
 
 
+.more-projects-div {
+    padding: 8rem 0;
+    text-align: center;
+}
+
+.more-projects-div button {
+    font-size: 1.5rem;
+    border: none;
+    color: white;
+    background-color: var(--custom-red);
+    height: 12rem;
+    width: 12rem;
+    border-radius: 50%;
+    font-weight: 900;
+}
+
+.more-projects-div button:hover {
+    cursor: pointer;
+}
 
 
 footer {
@@ -792,7 +828,6 @@ footer {
         width: 12rem;
         border: 12px solid var(--lines-color-light);
     }
-    
 }
 
 
@@ -801,7 +836,6 @@ footer {
     .nav-full > div{
         display: none;
     }
-
 
     header {
         display: flex;

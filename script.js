@@ -82,6 +82,14 @@ gsap.from(".nav-btn", {
 });
 
 
+gsap.to(".code-box-animated", {
+    rotation : 180,
+    repeat : -1,
+    duration : 1,
+    repeatDelay : 1
+})
+
+
 
 // nav full mousehover
 const headings = document.querySelectorAll(".nav-full > div > a");
@@ -224,6 +232,9 @@ function textScrambleAnimation(splitText, gsapText, delay) {
 
 // Call the function with the selectors
 textScrambleAnimation(".about-text", ".about-text > span > span", 0);
+textScrambleAnimation(".skills-text", ".skills-text > span > span", 0);
+textScrambleAnimation(".resume-text", ".resume-text > span > span", 0);
+textScrambleAnimation(".likings-text", ".likings-text > span > span", 0);
 textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
 
 
@@ -261,6 +272,13 @@ window.onload = function preLoaderFunc() {
 
 
 // dark and light mode
+
+gsap.to('#theme-toggle', {
+    rotation : 360,
+    duration : 1.5,
+    repeat : -1,
+    ease : "linear"
+})
 
 document.addEventListener('DOMContentLoaded', () => {
     const toggleButton = document.getElementById('theme-toggle');
@@ -322,15 +340,11 @@ function getThresholds() {
 
     if (window.matchMedia("(max-width: 767px)").matches) {
         // Mobile devices
-        threshold1 = viewportHeight * 2;
-        threshold2 = viewportHeight * 3;
-    } else if (window.matchMedia("(min-width: 768px) and (max-width: 1024px)").matches) {
-        // Tablets
         threshold1 = viewportHeight * 3;
         threshold2 = viewportHeight * 4;
-    } else {
+    }else {
         // PCs
-        threshold1 = viewportHeight * 3;
+        threshold1 = viewportHeight * 3.5;
         threshold2 = viewportHeight * 4;
     }
 
@@ -382,15 +396,23 @@ gsap.to(".work-scroll-bar", {
 });
 
 
-gsap.from(".about-div", {
-    scale : 0.9,
-    scrollTrigger : {
-        trigger : "#about",
-        start : "top 80%",
-        end : "top 20%",
-        scrub : 1
-    }
-})
+function revealAnimation(elem, triggerEl) {
+    gsap.from(elem, {
+        opacity : 0,
+        y : 100,
+        duration: 1,
+        scrollTrigger : {
+            trigger : triggerEl,
+            start : "top 80%",
+            end : "top 20%",
+            scrub : 1
+        }
+    })
+};
+
+
+revealAnimation(".about-div", "#about");
+
 
 gsap.from(".final-section-quote", {
     scale : 1.5,
@@ -412,20 +434,41 @@ gsap.from(".final-section-gallery", {
     }
 });
 
-gsap.to(".gallery-1", {
-    x : -150,
-    scrollTrigger : {
-        trigger : ".final-section-gallery",
-        start : "top bottom",
-        scrub : 1
+
+const galleryTimeline = gsap.timeline({
+    scrollTrigger: {
+        trigger: ".final-section-gallery",
+        start: "top bottom",
+        scrub: 1
     }
 });
 
-gsap.from(".gallery-2", {
-    x : -150,
+galleryTimeline
+    .to(".gallery-1", { x: -150 }, 0)
+    .from(".gallery-2", { x: -150 }, 0);
+
+
+// Animating more work button on scroll
+gsap.from(".more-projects-div > button", {
+    scale: 0,
+    duration: 0.4,
+    scrollTrigger: {
+        trigger: ".more-projects-div",
+        start: "top 50%",
+        toggleActions: "play none none reverse",
+    }
+});
+
+
+const workTimeline = gsap.timeline({
     scrollTrigger : {
-        trigger : ".final-section-gallery",
-        start : "top bottom",
-        scrub : 1
+        trigger : ".work-div",
+        start : "top 80%",
+        end : "top 20%",
+        toggleActions: "play none none reverse",
     }
 })
+
+workTimeline
+    .from(".work-div-1 > div > h3", {opacity : 0, y : 100})
+    .from(".work-div-2-txts > p:first-child", {opacity : 0, y : 100})
