@@ -368,7 +368,6 @@ body {
 header {
     display: flex;
     text-align: left;
-    overflow: hidden;
     justify-content: space-around;
 }
 
