@@ -531,7 +531,7 @@ tr:nth-child(even) {
 }
 
 .work-scroll-bar {
-    border-bottom: 3px dotted var(--custom-red);
+    border-bottom: 4px solid var(--custom-red);
     transform: translateX(-100%);
     display: block;
 }
