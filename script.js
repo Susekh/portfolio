@@ -2,10 +2,24 @@ let isNavOpen = false;
 
 // portable navbar btn
 const navBtn = document.querySelector(".nav-btn");
-const moreBtn = document.querySelectorAll(".more-projects-div > button");
 const navHam = document.querySelector(".ri-menu-line");
 const portableNavBar = document.querySelector(".nav-portable");
 const crossBtn = document.querySelector(".nav-portable-close");
+
+// CONSIDER USING VIDEOS 
+
+//for smooth scrolling
+const lenis = new Lenis()
+
+lenis.on('scroll')
+
+function raf(time) {
+  lenis.raf(time)
+  requestAnimationFrame(raf)
+}
+
+requestAnimationFrame(raf);
+
 
 // Open portable navbar
 navBtn.addEventListener("click", () => {
@@ -129,7 +143,6 @@ function dragHover(headings, intensity, ease, duration, scale) {
 
 
 dragHover(headings, 0.7, 'power1.out', 1, 1);
-dragHover(moreBtn, 0.6, 'power1.out', 1, 1);
 
 const navLinks = document.querySelectorAll(".nav-portable-nav-links > a");
 dragHover(navLinks, 0.1, 'power1.out', 0.6, 1);
@@ -239,6 +252,42 @@ textScrambleAnimation(".likings-text", ".likings-text > span > span", 0);
 textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
 
 
+function textRevealAnimation(selector) {
+    const element = document.querySelector(selector);
+    const text = element.textContent.trim();
+    const words = text.split(' '); // Split text into words
+
+    const characters = words.map(word => {
+        // For each word, map each character into a span, then join with empty string
+        const wrappedChars = word.split('').map(char => {
+            return `<span class="char-container"><span class="char-line">${char}</span></span>`;
+        }).join('');
+
+        // Return the word wrapped with spaces
+        return `<span class="word-container">${wrappedChars}</span>`;
+    }).join(' '); // Join words with spaces
+
+    element.innerHTML = characters;
+
+    gsap.from(element.querySelectorAll('.char-line'), {
+        y: 30,
+        duration: 0.2,
+        ease: "power2.out",
+        scrollTrigger: {
+            trigger: element,
+            start: "top 80%",
+            end: "top 20%",
+            scrub: 1
+        }
+    });
+}
+
+
+// Call the function
+for(let i = 1; i <= 5; i++){
+    textRevealAnimation(`.about-text-${i}`);
+}
+
 
 // pre loader
 
@@ -304,115 +353,169 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-// about part gsap animation
+// Work part gsap animation
+
+// const initialClipPaths = [
+//     "polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)",
+//     "polygon(33% 0%, 33% 0%, 33% 0%, 33% 0%)",
+//     "polygon(66% 0%, 66% 0%, 66% 0%, 66% 0%)",
+//     "polygon(0% 33%, 0% 33%, 0% 33%, 0% 33%)",
+//     "polygon(33% 33%, 33% 33%, 33% 33%, 33% 33%)",
+//     "polygon(66% 33%, 66% 33%, 66% 33%, 66% 33%)",
+//     "polygon(0% 66%, 0% 66%, 0% 66%, 0% 66%)",
+//     "polygon(33% 66%, 33% 66%, 33% 66%, 33% 66%)",
+//     "polygon(66% 66%, 66% 66%, 66% 66%, 66% 66%)",
+// ];
+
+// const finalClipPaths = [
+//     "polygon(0% 0%, 33.5% 0%, 33.5% 33%, 0% 33.5%)",
+//     "polygon(33% 0%, 66.5% 0%, 66.5% 33%, 33% 33.5%)",
+//     "polygon(66% 0%, 100% 0%, 100% 33%, 66% 33.5%)",
+//     "polygon(0% 33%, 33.5% 33%, 33.5% 66%, 0% 66.5%)",
+//     "polygon(33% 33%, 66.5% 33%, 66.5% 66%, 33% 66.5%)",
+//     "polygon(66% 33%, 100% 33%, 100% 66%, 66% 66.5%)",
+//     "polygon(0% 66%, 33.5% 66%, 33.5% 100%, 0% 100%)",
+//     "polygon(33% 66%, 66.5% 66%, 66.5% 100%, 33% 100%)",
+//     "polygon(66% 66%, 100% 66%, 100% 100%, 66% 100%)",
+// ];
+
+let revealContainers = document.querySelectorAll(".reveal");
+
+revealContainers.forEach((container) => {
+  let image = container.querySelector("img");
+
+  // Apply will-change to optimize performance during animations
+  container.style.willChange = 'transform, opacity';
+  image.style.willChange = 'transform';
+
+  // Create a timeline with scrollTrigger
+  let tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: container,
+      start: "top 70%",
+      end: "top 20%",
+      scrub: 1,
+      toggleActions: "play none none reverse", // Adds smooth reversing
+    },
+    defaults: {
+      duration: 1.5,
+      ease: "Power2.out",
+    }
+  });
+
+  // Chain animations for better readability and control
+  tl.set(container, { autoAlpha: 1 })
+    .from(container, {
+      xPercent: -100,
+    })
+    .from(image, {
+      xPercent: 100,
+      scale: 1.3,
+    }, "<"); // Using "<" makes both animations start at the same time
+});
+
+
+function animateWorkElems(elem) {
+    // Select elements to animate based on the provided `elem` selector
+    const workElems = document.querySelector(elem).querySelectorAll(":scope > div > div > .work-content-child-animation");
+
+    // Apply GSAP animation
+    gsap.from(workElems, {
+        y: 100,                // Animate each element starting from 100px below
+        stagger: 0.2,          // Stagger the start of each animation by 0.2 seconds
+        scrollTrigger: {
+            trigger: elem,   // Use the provided `trigger` selector for ScrollTrigger
+            start: "top 50%",   // Animation starts when the top of `trigger` is 50% from the top of the viewport
+            toggleActions: "play none none reverse", // Toggle actions for ScrollTrigger
+        }
+    });
+}
+
+// Example usage
+animateWorkElems(".work-div-1");
+animateWorkElems(".work-div-2");
+animateWorkElems(".work-div-3");
 
 // Data for images
-const contentData = [
-    { imgSrc: "/Screenshot_20240420_011401.a75d83eb.png", title : "TEAMSYNC", pg : "01", index : "3" },
-    { imgSrc: "./Screenshot_20240420_061046.81e2a5d3.png", title : "CAFFEE", pg : "02" , index : "4"},
-    { imgSrc: "./Screenshot_20240421_084352.5c5af00c.png", title : "WALDO", pg : "03", index : "5" },
-];
+// const contentData = [
+//     { imgSrc: "/Screenshot_20240420_011401.a75d83eb.png", title : "TEAMSYNC", pg : "01", index : "3" },
+//     { imgSrc: "./Screenshot_20240420_061046.81e2a5d3.png", title : "CAFFEE", pg : "02" , index : "4"},
+//     { imgSrc: "./Screenshot_20240421_084352.5c5af00c.png", title : "WALDO", pg : "03", index : "5" },
+// ];
+    
+// let currentIndex = -1;
 
-let currentIndex = -1;
+// // Function to update the content based on the current index
+// function updateContent(index) {
+//     const content = contentData[index]
+//     if (index === currentIndex) return;
+//     const TitleElem = document.querySelector(".work-div-1  h3");
+//     const pgElem = document.querySelector(".work-div-1 p")
+//     const imgElement = document.querySelector('.work-img-div img');
+//         // GSAP animation for fading out the old image and fading in the new one
+//         gsap.to(imgElement, { opacity: 0, duration: 0.3, onComplete: () => {
+//             imgElement.src = content.imgSrc;
+//             TitleElem.innerText = content.title;
+//             pgElem .innerText= `P / ${content.pg}`;
+//             gsap.to(imgElement, { opacity: 1, duration: 0.6});
+//         }});
 
-// Function to update the content based on the current index
-function updateContent(index) {
-    const content = contentData[index]
-    if (index === currentIndex) return;
-    const TitleElem = document.querySelector(".work-div-1  h3");
-    const pgElem = document.querySelector(".work-div-1 p")
-    const imgElement = document.querySelector('.work-img-div img');
-        // GSAP animation for fading out the old image and fading in the new one
-        gsap.to(imgElement, { opacity: 0, duration: 0.3, onComplete: () => {
-            imgElement.src = content.imgSrc;
-            TitleElem.innerText = content.title;
-            pgElem .innerText= `P / ${content.pg}`;
-            gsap.to(imgElement, { opacity: 1, duration: 0.6});
-        }});
+//     currentIndex = index;
+// }
 
-    currentIndex = index;
-}
+// // Function to determine device type and set thresholds
+// function getThresholds() {
+//     const viewportHeight = window.innerHeight;
 
-// Function to determine device type and set thresholds
-function getThresholds() {
-    const viewportHeight = window.innerHeight;
+//     let threshold1, threshold2;
 
-    let threshold1, threshold2;
+//     if (window.matchMedia("(max-width: 767px)").matches) {
+//         // Mobile devices
+//         threshold1 = viewportHeight * 3;
+//         threshold2 = viewportHeight * 4;
+//     }else {
+//         // PCs
+//         threshold1 = viewportHeight * 3.5;
+//         threshold2 = viewportHeight * 4;
+//     }
 
-    if (window.matchMedia("(max-width: 767px)").matches) {
-        // Mobile devices
-        threshold1 = viewportHeight * 3;
-        threshold2 = viewportHeight * 4;
-    }else {
-        // PCs
-        threshold1 = viewportHeight * 3.5;
-        threshold2 = viewportHeight * 4;
-    }
+//     return { threshold1, threshold2 };
+// }
 
-    return { threshold1, threshold2 };
-}
+// // Function to handle scroll events
+// function handleScroll() {
+//     const scrollY = window.scrollY;
+//     const { threshold1, threshold2 } = getThresholds();
 
-// Function to handle scroll events
-function handleScroll() {
-    const scrollY = window.scrollY;
-    const { threshold1, threshold2 } = getThresholds();
+//     if (scrollY < threshold1) {
+//         updateContent(0);
+//     } else if (scrollY >= threshold1 && scrollY < threshold2) {
+//         updateContent(1);
+//     } else if (scrollY >= threshold2) {
+//         updateContent(2);
+//     }
+// }
 
-    if (scrollY < threshold1) {
-        updateContent(0);
-    } else if (scrollY >= threshold1 && scrollY < threshold2) {
-        updateContent(1);
-    } else if (scrollY >= threshold2) {
-        updateContent(2);
-    }
-}
+// // Initial call to handleScroll to set the correct content based on initial scroll position
+// window.addEventListener("load", handleScroll);
 
-// Initial call to handleScroll to set the correct content based on initial scroll position
-window.addEventListener("load", handleScroll);
+// // Adding event listener for scroll
+// window.addEventListener("scroll", handleScroll);
 
-// Adding event listener for scroll
-window.addEventListener("scroll", handleScroll);
+// ScrollTrigger.create({
+//     trigger: "#work",
+//     start: "top top",
+//     end: () => "+=" + window.innerHeight * 3,
+//     pin: true,
+//     scrub : true,
+// });
 
-ScrollTrigger.create({
-    trigger: "#work",
-    start: "top top",
-    end: () => "+=" + window.innerHeight * 3,
-    pin: true,
-    scrub : true,
-});
-
-// Handle resizing for responsive adjustments
-window.addEventListener("resize", () => {
-    ScrollTrigger.refresh();
-});
-
-
-gsap.to(".work-scroll-bar", {
-    x : 0,
-    scrollTrigger : {
-        trigger : "#work",
-        start : "top top",
-        end: () => "+=" + window.innerHeight * 3,
-        scrub : 2
-    }
-});
+// // Handle resizing for responsive adjustments
+// window.addEventListener("resize", () => {
+//     ScrollTrigger.refresh();
+// });
 
 
-function revealAnimation(elem, triggerEl) {
-    gsap.from(elem, {
-        opacity : 0,
-        y : 100,
-        duration: 1,
-        scrollTrigger : {
-            trigger : triggerEl,
-            start : "top 80%",
-            end : "top 20%",
-            scrub : 1
-        }
-    })
-};
-
-
-revealAnimation(".about-div", "#about");
 
 
 gsap.from(".final-section-quote", {
@@ -445,31 +548,18 @@ const galleryTimeline = gsap.timeline({
 });
 
 galleryTimeline
-    .to(".gallery-1", { x: -150 }, 0)
-    .from(".gallery-2", { x: -150 }, 0);
+    .to(".gallery-1", { x: "-5%" }, 0)
+    .to(".gallery-2", { x : 0 }, 0);
 
 
-// Animating more work button on scroll
-gsap.from(".more-projects-div > button", {
-    scale: 0,
-    duration: 0.4,
-    scrollTrigger: {
-        trigger: ".more-projects-div",
-        start: "top 50%",
-        toggleActions: "play none none reverse",
-    }
-});
-
-
-const workTimeline = gsap.timeline({
+gsap.from(".innerAnimated-div", {
+    scale : 0.5,
+    borderRadius : "3rem",
     scrollTrigger : {
-        trigger : ".work-div",
-        start : "top 80%",
+        trigger : ".more-projects-div",
+        start : "top 90%",
         end : "top 20%",
-        toggleActions: "play none none reverse",
+        scrub : 1
     }
 })
 
-workTimeline
-    .from(".work-div-1 > div > h3", {opacity : 0, y : 100})
-    .from(".work-div-2-txts > p:first-child", {opacity : 0, y : 100})
