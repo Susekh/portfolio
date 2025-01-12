@@ -30,7 +30,7 @@
     --nav-background: #222222;
     --nav-border: rgba(255, 255, 255, 0.422);
     --header-background: #111111;
-    --img-card-color : rgba(255, 255, 255, 0.775);
+    --img-card-color : rgba(255, 255, 255, 0.682);
     --table-nth-color : #0c0a0925;
     --lines-color-light : #44403c40;
     --custom-red : #0891b2;
@@ -70,6 +70,8 @@ html,
 body {
     height: 100%;
     width: 100%;
+    padding-top: 8px;
+    padding-bottom: 16px;
 }
 
 body {
@@ -77,11 +79,17 @@ body {
     color: var(--text-color);
 }
 
+.responsive-wrapper {
+    overflow: hidden;
+}
+
 .pre-loader {
     height: 100%;
     width: 100%;
     background-color: #262626;
     position: fixed;
+    top: 0;
+    left: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -205,7 +213,7 @@ body {
     color: var(--img-card-color);
     align-items: center;
     font-weight: 600;
-    max-height: 550px;
+    max-height: 600px;
 }
 
 .img-card-section-1 {
@@ -219,16 +227,16 @@ body {
     writing-mode: vertical-rl;
     padding: 0.5rem;
     font-weight: 600;
-    color: var(--img-card-color);
+    color: var(--text-color);
     font-size: 2rem;
 }
 
-.card-odiya-txt-1 {
+.header-card-txt-1 {
     font-weight: 600;
-    font-size: 2.3rem;
+    font-size: 3rem;
     border: solid 2px var(--img-card-color);
-    padding: 10px;
-    color: var(--img-card-color);
+    padding: 0.5rem;
+    color: var(--text-color);
     animation: fadeInOut 0.7s ease-in-out 2;
     animation-delay: 1.4s;
 }
@@ -267,7 +275,7 @@ body {
 .img-card-section-2-paras {
     padding: 1rem;
     border: 2px solid var(--img-card-color);
-    color: var(--img-card-color);
+    color: var(--text-color);
     font-weight: 600;
 }
 
@@ -382,7 +390,7 @@ header {
 .page1 {
     display: flex;
     justify-content: center;
-    padding: 2rem 4rem;
+    padding: 1rem 4rem;
     border-left: 2px solid var(--lines-color-light);
 }
 
@@ -491,7 +499,6 @@ tr:nth-child(even) {
 
 .char-line {
     display: inline-block;
-    overflow: hidden;
 }
 
 #about {
@@ -527,9 +534,7 @@ tr:nth-child(even) {
 }
 
 
-#work {
-    padding: 2rem;
-}
+
 
 
 #work > h3 {
@@ -538,71 +543,38 @@ tr:nth-child(even) {
     color: var(--custom-red);
 }
 
-.work-div {
+.work-container {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 .work-content {
-    padding: 4rem 2rem;
+    padding: 2rem 2rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
-.work-content p{
-    max-width: 450px;
+.work-div {
+    border: 2px solid var(--lines-color-light);
+    border-radius: 8px;
 }
-
-.work-content h4{
-    color: var(--text-color-dark);
-    font-size: 4rem;
-}
-
 
 .work-animation-div{
     overflow: hidden;
 }
 
-.work-img-container {
-    overflow: hidden;
-    padding: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.reveal {
-    visibility: hidden;
-    position: relative;
-    overflow: hidden;
-  }
-
 .work-img{
     object-fit: cover;
-    max-width: 800px;
-    max-height: 400px;
-    transform-origin: left;
+    width: 100%;
+    height: 100%;
 }
 
-.work-btn {
-    width: 12rem;
-    height: 4rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    border: 2px solid var(--lines-color-light);
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.5rem;
-    color: var(--text-color);
-    margin-top: 2rem;
+.work-img-container {
+    margin-left: auto;
+    margin-right: auto;
 }
-
-
-
 
 
 .button-animation {
@@ -697,12 +669,6 @@ tr:nth-child(even) {
   background: none;
 }
 
-@media (min-width: 768px) {
-  .final-section-btn {
-    font-size: 24px;
-    min-width: 196px;
-  }
-}
 
 .final-section-gallery {
     overflow: hidden;
@@ -729,9 +695,9 @@ tr:nth-child(even) {
 
 .more-projects-div {
     margin-top: 16rem;
-    height: 100vh;
+    height: 50vh;
     background:url(./imgs/pexels-mbanov-4753682.jpg);
-    padding: 4rem;
+    padding: 2rem;
     position: relative;
 }
 
@@ -850,6 +816,77 @@ footer {
     font-size: 2rem;
 }
 
+@media (min-width : 768px) {
+    .responsive-wrapper {
+        max-width: 1440px;
+        margin-left: auto;
+        margin-right: auto;
+        z-index: -999;
+        padding: 4px;
+        border: 2px solid var(--lines-color-light) ;
+        border-radius: 16px;
+        box-shadow: rgba(0, 0, 0, 0.396) 0px 5px 15px;
+    }
+
+    .final-section-btn {
+        font-size: 24px;
+        min-width: 196px;
+    }
+    #work {
+        padding: 2rem;
+    }
+    .work-div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .work-img{
+        object-fit: cover;
+        max-width: 800px;
+        max-height: 400px;
+        transform-origin: left;
+    }
+    .work-content p{
+        max-width: 450px;
+    }
+    
+    .work-content h4{
+        color: var(--text-color-dark);
+        font-size: 4rem;
+    }
+
+    .work-btn {
+        width: 12rem;
+        height: 4rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 8px;
+        border: 2px solid var(--lines-color-light);
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1.5rem;
+        color: var(--text-color);
+        margin-top: 2rem;
+    }
+
+    .reveal {
+        visibility: hidden;
+        position: relative;
+        overflow: hidden;
+    }
+
+
+    .final-section-btn {
+        font-size: 24px;
+        min-width: 196px;
+      }
+
+    .more-projects-div {
+        height: 90vh;
+    }
+    
+}
 
 @media (max-width: 768px) {
     * {
@@ -883,9 +920,6 @@ footer {
 
     .work-div-2-txts p{
         font-size: 1.5rem;
-    }
-    .work-div-2-txts {
-        max-width: 100%;
     }
 
     .final-section-gallery img {
@@ -986,10 +1020,6 @@ footer {
     }
 
 
-    #work a {
-        display: none;
-    }
-
     .final-section-quote-container {
         padding: 2rem 0;
     }
@@ -1005,17 +1035,6 @@ footer {
 }
 
 
-@media (max-width:1400px) {
-    .work-div-2 {
-        padding: 0;
-        flex-direction: column;
-        border: 0;
-    }
-
-    .work-div-2-txts {
-        max-width: 70%;
-    }
-}
 
 
 @keyframes fadeIn {

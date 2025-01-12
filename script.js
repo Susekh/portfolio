@@ -6,242 +6,240 @@ const navHam = document.querySelector(".ri-menu-line");
 const portableNavBar = document.querySelector(".nav-portable");
 const crossBtn = document.querySelector(".nav-portable-close");
 
-// CONSIDER USING VIDEOS 
+// CONSIDER USING VIDEOS
 
 //for smooth scrolling
-const lenis = new Lenis()
+const lenis = new Lenis();
 
-lenis.on('scroll')
+lenis.on("scroll");
 
 function raf(time) {
-  lenis.raf(time)
-  requestAnimationFrame(raf)
+  lenis.raf(time);
+  requestAnimationFrame(raf);
 }
 
 requestAnimationFrame(raf);
 
-
 // Open portable navbar
 navBtn.addEventListener("click", () => {
-    if (!isNavOpen) {
-        gsap.to(".nav-portable", {
-            x: 0,
-            duration: 0.6,
-            ease: "expo.out", 
-        });
+  if (!isNavOpen) {
+    gsap.to(".nav-portable", {
+      x: 0,
+      duration: 0.6,
+      ease: "expo.out",
+    });
 
-        gsap.from(".nav-portable-nav-links a", {
-            x: 500,
-            stagger: 0.05,
-            ease: "expo.out",
-            duration: 1.5,
-        });
+    gsap.from(".nav-portable-nav-links a", {
+      x: 500,
+      stagger: 0.05,
+      ease: "expo.out",
+      duration: 1.5,
+    });
 
-        isNavOpen = true;
-    }
+    isNavOpen = true;
+  }
 });
 
 // Close portable navbar
 crossBtn.addEventListener("click", closeNavBar);
 
-document.addEventListener('click', (event) => {
-    const isClickInsideNavbar = portableNavBar.contains(event.target);
-    const isClickOnToggleButton = navBtn.contains(event.target);
+document.addEventListener("click", (event) => {
+  const isClickInsideNavbar = portableNavBar.contains(event.target);
+  const isClickOnToggleButton = navBtn.contains(event.target);
 
-    if (!isClickInsideNavbar && !isClickOnToggleButton) {
-        closeNavBar();
-    }
+  if (!isClickInsideNavbar && !isClickOnToggleButton) {
+    closeNavBar();
+  }
 });
 
 function closeNavBar() {
-    if (isNavOpen) {
-        gsap.to(".nav-portable", {
-            x: "400%",
-            duration : 0.3,
-            ease: 'expo.in'
-        });
+  if (isNavOpen) {
+    gsap.to(".nav-portable", {
+      x: "400%",
+      duration: 0.3,
+      ease: "expo.in",
+    });
 
-        isNavOpen = false;
-    }
+    isNavOpen = false;
+  }
 }
 
 // Hover effect on nav-portable button
 function scaleAnimation(element, scaleTo, duration, ease = "none") {
-    gsap.to(element, {
-        scale: scaleTo,
-        duration: duration,
-        ease: ease
-    });
+  gsap.to(element, {
+    scale: scaleTo,
+    duration: duration,
+    ease: ease,
+  });
 }
 
 navBtn.addEventListener("mouseenter", (event) => {
-    scaleAnimation(event.target, 1.2, 0.5);
+  scaleAnimation(event.target, 1.2, 0.5);
 });
 
 navBtn.addEventListener("mouseleave", (event) => {
-    scaleAnimation(event.target, 1, 0.5, "power1.out");
+  scaleAnimation(event.target, 1, 0.5, "power1.out");
 });
-
 
 // Animating nav button on scroll
 gsap.from(".nav-btn", {
-    scale: 0,
-    duration: 0.4,
-    scrollTrigger: {
-        trigger: ".about-me",
-        start: "top 50%",
-        toggleActions: "play none none reverse",
-    }
+  scale: 0,
+  duration: 0.4,
+  scrollTrigger: {
+    trigger: ".about-me",
+    start: "top 50%",
+    toggleActions: "play none none reverse",
+  },
 });
 
-
 gsap.to(".code-box-animated", {
-    rotation : 180,
-    repeat : -1,
-    duration : 1,
-    repeatDelay : 1
-})
-
-
+  rotation: 180,
+  repeat: -1,
+  duration: 1,
+  repeatDelay: 1,
+});
 
 // nav full mousehover animation
 const headings = document.querySelectorAll(".nav-full > div > a");
 
 function dragHover(headings, intensity, ease, duration, scale) {
-    headings.forEach((heading) => {
-        heading.addEventListener("mouseover", () => {
-            heading.addEventListener("mousemove", onMouseMove);
-        });
-    
-        heading.addEventListener("mouseout", () => {
-            heading.removeEventListener("mousemove", onMouseMove);
-            gsap.to(heading, {
-                x: 0,
-                y: 0,
-                ease : '',
-                scale: scale,
-                duration: duration
-            });
-        });
+  headings.forEach((heading) => {
+    heading.addEventListener("mouseover", () => {
+      heading.addEventListener("mousemove", onMouseMove);
     });
-    
-    function onMouseMove(event) {
-        const heading = event.target;
-        const rect = heading.getBoundingClientRect();
-        const offsetX = event.clientX - rect.left - rect.width / 2;
-        const offsetY = event.clientY - rect.top - rect.height / 2;
-    
-        gsap.to(heading, {
-            x: offsetX * intensity,
-            y: offsetY * intensity,
-            ease : ease,
-            scale: 1.2,
-            duration: duration
-        });
-    }
-};
 
+    heading.addEventListener("mouseout", () => {
+      heading.removeEventListener("mousemove", onMouseMove);
+      gsap.to(heading, {
+        x: 0,
+        y: 0,
+        ease: "",
+        scale: scale,
+        duration: duration,
+      });
+    });
+  });
 
-dragHover(headings, 0.7, 'power1.out', 1, 1);
+  function onMouseMove(event) {
+    const heading = event.target;
+    const rect = heading.getBoundingClientRect();
+    const offsetX = event.clientX - rect.left - rect.width / 2;
+    const offsetY = event.clientY - rect.top - rect.height / 2;
+
+    gsap.to(heading, {
+      x: offsetX * intensity,
+      y: offsetY * intensity,
+      ease: ease,
+      scale: 1.2,
+      duration: duration,
+    });
+  }
+}
+
+dragHover(headings, 0.7, "power1.out", 1, 1);
 
 const navLinks = document.querySelectorAll(".nav-portable-nav-links > a");
-dragHover(navLinks, 0.1, 'power1.out', 0.6, 1);
-
-
+dragHover(navLinks, 0.1, "power1.out", 0.6, 1);
 
 //header
 
 // header - img reveal animation
 gsap.from(".img-container > img", {
-    y : -500,
-    ease : "expo.out",
-    duration : 1.5,
-    delay : 1.7
-})
+  y: -500,
+  ease: "expo.out",
+  duration: 1.5,
+  delay: 2.2,
+});
 
 // header -  text scramble
 const initScrambleEffect = (selector) => {
-    const scrambleText = document.querySelector(selector);
-    const originalText = scrambleText.innerText;
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const duration = 0.5;
+  const scrambleText = document.querySelector(selector);
+  const originalText = scrambleText.innerText;
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const duration = 0.5;
 
-    const scramble = (element) => {
-        const length = originalText.length;
-        const scrambleValue = new Array(length).fill('').map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+  const scramble = (element) => {
+    const length = originalText.length;
+    const scrambleValue = new Array(length)
+      .fill("")
+      .map(() => chars[Math.floor(Math.random() * chars.length)])
+      .join("");
 
-        gsap.to(element, {
-            duration: duration,
-            text: {
-                value: scrambleValue,
-                newClass: "scramble"
-            },
-            ease: "none",
-            onComplete: () => element.innerText = originalText
-        });
-    };
-
-    let isScrambling = false;
-
-    scrambleText.addEventListener('mouseover', () => {
-        if (!isScrambling) {
-            isScrambling = true;
-            scramble(scrambleText);
-
-            setTimeout(() => {
-                isScrambling = false;
-            }, duration * 1000);
-        }
+    gsap.to(element, {
+      duration: duration,
+      text: {
+        value: scrambleValue,
+        newClass: "scramble",
+      },
+      ease: "none",
+      onComplete: () => (element.innerText = originalText),
     });
+  };
+
+  let isScrambling = false;
+
+  scrambleText.addEventListener("mouseover", () => {
+    if (!isScrambling) {
+      isScrambling = true;
+      scramble(scrambleText);
+
+      setTimeout(() => {
+        isScrambling = false;
+      }, duration * 1000);
+    }
+  });
 };
 
-
-initScrambleEffect('.scramble');
-initScrambleEffect('.scramble-1');
-initScrambleEffect('.scramble-2');
-
+initScrambleEffect(".scramble");
+initScrambleEffect(".scramble-1");
+initScrambleEffect(".scramble-2");
 
 function textScrambleAnimation(splitText, gsapText, delay) {
-    const aboutP = document.querySelector(splitText);
-    const aboutText = aboutP.textContent.trim();
-    const words = aboutText.split(/\s+/);
-    aboutP.innerHTML = words.map(word => `<span class="span-line"><span>${word} </span></span>`).join(" ");
+  const aboutP = document.querySelector(splitText);
+  const aboutText = aboutP.textContent.trim();
+  const words = aboutText.split(/\s+/);
+  aboutP.innerHTML = words
+    .map((word) => `<span class="span-line"><span>${word} </span></span>`)
+    .join(" ");
 
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-    // Function to scramble text
-    const scrambleText = (element, duration) => {
-        const originalText = element.innerText; // Store original text
-        const length = originalText.length;
-        const scrambleValue = new Array(length).fill('').map(() => chars[Math.floor(Math.random() * chars.length)]).join('');
+  // Function to scramble text
+  const scrambleText = (element, duration) => {
+    const originalText = element.innerText; // Store original text
+    const length = originalText.length;
+    const scrambleValue = new Array(length)
+      .fill("")
+      .map(() => chars[Math.floor(Math.random() * chars.length)])
+      .join("");
 
+    gsap.to(element, {
+      duration: duration,
+      text: scrambleValue,
+      ease: "none",
+      delay: delay,
+      onComplete: () => {
         gsap.to(element, {
-            duration: duration,
-            text: scrambleValue,
-            ease: "none",
-            delay : delay,
-            onComplete: () => {
-                gsap.to(element, {
-                    duration: 0.5,
-                    text: originalText,
-                    ease: "none"
-                });
-            }
+          duration: 0.5,
+          text: originalText,
+          ease: "none",
         });
-    };
-
-    ScrollTrigger.create({
-        trigger: splitText,
-        start: "top 80%", 
-        end: "top 20%",
-        onEnter: () => {
-            // Scramble each span on scroll
-            document.querySelectorAll(gsapText).forEach(span => {
-                scrambleText(span, 0.3);
-            });
-        },
-        toggleActions: "play none none reset",
+      },
     });
+  };
+
+  ScrollTrigger.create({
+    trigger: splitText,
+    start: "top 80%",
+    end: "top 20%",
+    onEnter: () => {
+      // Scramble each span on scroll
+      document.querySelectorAll(gsapText).forEach((span) => {
+        scrambleText(span, 0.3);
+      });
+    },
+    toggleActions: "play none none reset",
+  });
 }
 
 // Call the function with the selectors
@@ -251,43 +249,45 @@ textScrambleAnimation(".resume-text", ".resume-text > span > span", 0);
 textScrambleAnimation(".likings-text", ".likings-text > span > span", 0);
 textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
 
-
 function textRevealAnimation(selector) {
-    const element = document.querySelector(selector);
-    const text = element.textContent.trim();
-    const words = text.split(' '); // Split text into words
+  const element = document.querySelector(selector);
+  const text = element.textContent.trim();
+  const words = text.split(" "); // Split text into words
 
-    const characters = words.map(word => {
-        // For each word, map each character into a span, then join with empty string
-        const wrappedChars = word.split('').map(char => {
-            return `<span class="char-container"><span class="char-line">${char}</span></span>`;
-        }).join('');
+  const characters = words
+    .map((word) => {
+      // For each word, map each character into a span, then join with empty string
+      const wrappedChars = word
+        .split("")
+        .map((char) => {
+          return `<span class="char-container"><span class="char-line">${char}</span></span>`;
+        })
+        .join("");
 
-        // Return the word wrapped with spaces
-        return `<span class="word-container">${wrappedChars}</span>`;
-    }).join(' '); // Join words with spaces
+      // Return the word wrapped with spaces
+      return `<span class="word-container">${wrappedChars}</span>`;
+    })
+    .join(" "); // Join words with spaces
 
-    element.innerHTML = characters;
+  element.innerHTML = characters;
 
-    gsap.from(element.querySelectorAll('.char-line'), {
-        y: 30,
-        duration: 0.2,
-        ease: "power2.out",
-        scrollTrigger: {
-            trigger: element,
-            start: "top 80%",
-            end: "top 20%",
-            scrub: 1
-        }
-    });
+  gsap.from(element.querySelectorAll(".char-line"), {
+    y: 25,
+    duration: 1,
+    stagger: 0.02,
+    scrollTrigger: {
+      trigger: element,
+      start: "top 80%",
+      end: "top 20%",
+      scrub: 0.5,
+    },
+  });
 }
-
 
 // Call the function
-for(let i = 1; i <= 5; i++){
-    textRevealAnimation(`.about-text-${i}`);
+for (let i = 1; i <= 5; i++) {
+  textRevealAnimation(`.about-text-${i}`);
 }
-
 
 // pre loader
 
@@ -295,63 +295,59 @@ const preLoader = document.querySelector(".pre-loader");
 const loaderText = document.querySelector(".pre-loader-text");
 
 window.onload = function preLoaderFunc() {
-    const loaderContent = ["ଜୟ ଜଗନ୍ନାଥ", "Namoste", "こんにちは", "नमस्ते", "Hola", "Hi"];
-    let currentIndex = 0;
+  const loaderContent = [
+    "ଜୟ ଜଗନ୍ନାଥ",
+    "Namoste",
+    "こんにちは",
+    "नमस्ते",
+    "Hola",
+    "Hi",
+  ];
+  let currentIndex = 0;
 
-    const intervalId = setInterval(() => {
-        loaderText.textContent = loaderContent[currentIndex];
-        currentIndex = (currentIndex + 1) % loaderContent.length;
-    }, 100);
+  const intervalId = setInterval(() => {
+    loaderText.textContent = loaderContent[currentIndex];
+    currentIndex = (currentIndex + 1) % loaderContent.length;
+  }, 100);
 
-    setTimeout(() => {
-        clearInterval(intervalId);
+  setTimeout(() => {
+    clearInterval(intervalId);
 
-        gsap.to(preLoader, {
-            display: "none",
-            y: "-100%",
-            ease: "expo.in"
-        });
-        gsap.from(".header-para", {
-            y: 10,
-            opacity: 0,
-            ease: "expo.out",
-            delay: 0.5
-        });
-    }, 1000);
-}
-
+    gsap.to(preLoader, {
+      display: "none",
+      y: "-100%",
+      ease: "expo.in",
+    });
+    gsap.from(".header-para", {
+      y: 10,
+      opacity: 0,
+      ease: "expo.out",
+      delay: 0.5,
+    });
+  }, 1000);
+};
 
 // dark and light mode
 
-gsap.to('#theme-toggle', {
-    rotation : 360,
-    duration : 1.5,
-    repeat : -1,
-    ease : "linear"
-})
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleButton = document.getElementById("theme-toggle");
 
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.getElementById('theme-toggle');
-    
-    // Check for saved user preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark-mode') {
-        document.body.classList.add('dark-mode');
+  // Check for saved user preference
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark-mode") {
+    document.body.classList.add("dark-mode");
+  }
+
+  toggleButton.addEventListener("click", () => {
+    if (document.body.classList.contains("dark-mode")) {
+      document.body.classList.remove("dark-mode");
+      localStorage.setItem("theme", ""); // Remove preference
+    } else {
+      document.body.classList.add("dark-mode");
+      localStorage.setItem("theme", "dark-mode"); // Save preference
     }
-
-    toggleButton.addEventListener('click', () => {
-        if (document.body.classList.contains('dark-mode')) {
-            document.body.classList.remove('dark-mode');
-            localStorage.setItem('theme', ''); // Remove preference
-        } else {
-            document.body.classList.add('dark-mode');
-            localStorage.setItem('theme', 'dark-mode'); // Save preference
-        }
-    });
+  });
 });
-
-
-
 
 // Work part gsap animation
 
@@ -382,11 +378,12 @@ document.addEventListener('DOMContentLoaded', () => {
 let revealContainers = document.querySelectorAll(".reveal");
 
 revealContainers.forEach((container) => {
+  if (window.innerWidth < 1024) return;
   let image = container.querySelector("img");
 
   // Apply will-change to optimize performance during animations
-  container.style.willChange = 'transform, opacity';
-  image.style.willChange = 'transform';
+  container.style.willChange = "transform, opacity";
+  image.style.willChange = "transform";
 
   // Create a timeline with scrollTrigger
   let tl = gsap.timeline({
@@ -400,7 +397,7 @@ revealContainers.forEach((container) => {
     defaults: {
       duration: 1.5,
       ease: "Power2.out",
-    }
+    },
   });
 
   // Chain animations for better readability and control
@@ -408,27 +405,32 @@ revealContainers.forEach((container) => {
     .from(container, {
       xPercent: -100,
     })
-    .from(image, {
-      xPercent: 100,
-      scale: 1.3,
-    }, "<"); // Using "<" makes both animations start at the same time
+    .from(
+      image,
+      {
+        xPercent: 100,
+        scale: 1.3,
+      },
+      "<"
+    ); // Using "<" makes both animations start at the same time
 });
 
-
 function animateWorkElems(elem) {
-    // Select elements to animate based on the provided `elem` selector
-    const workElems = document.querySelector(elem).querySelectorAll(":scope > div > div > .work-content-child-animation");
+  // Select elements to animate based on the provided `elem` selector
+  const workElems = document
+    .querySelector(elem)
+    .querySelectorAll(":scope > div > div > .work-content-child-animation");
 
-    // Apply GSAP animation
-    gsap.from(workElems, {
-        y: 100,                // Animate each element starting from 100px below
-        stagger: 0.2,          // Stagger the start of each animation by 0.2 seconds
-        scrollTrigger: {
-            trigger: elem,   // Use the provided `trigger` selector for ScrollTrigger
-            start: "top 50%",   // Animation starts when the top of `trigger` is 50% from the top of the viewport
-            toggleActions: "play none none reverse", // Toggle actions for ScrollTrigger
-        }
-    });
+  // Apply GSAP animation
+  gsap.from(workElems, {
+    y: 100, 
+    stagger: 0.2, 
+    scrollTrigger: {
+      trigger: elem, 
+      start: "top 50%", 
+      toggleActions: "play none none reverse",
+    },
+  });
 }
 
 // Example usage
@@ -442,7 +444,7 @@ animateWorkElems(".work-div-3");
 //     { imgSrc: "./Screenshot_20240420_061046.81e2a5d3.png", title : "CAFFEE", pg : "02" , index : "4"},
 //     { imgSrc: "./Screenshot_20240421_084352.5c5af00c.png", title : "WALDO", pg : "03", index : "5" },
 // ];
-    
+
 // let currentIndex = -1;
 
 // // Function to update the content based on the current index
@@ -515,51 +517,43 @@ animateWorkElems(".work-div-3");
 //     ScrollTrigger.refresh();
 // });
 
-
-
-
 gsap.from(".final-section-quote", {
-    scale : 1.5,
-    opacity: 0,
-    scrollTrigger : {
-        trigger : ".final-section",
-        start : "top 70%",
-        scrub : 1,
-    }
+  scale: 1.5,
+  opacity: 0,
+  scrollTrigger: {
+    trigger: ".final-section",
+    start: "top 70%",
+    scrub: 1,
+  },
 });
 
 gsap.from(".final-section-gallery", {
-    y : 300,
-    scrollTrigger : {
-        trigger : ".final-section-quote",
-        start : "top 50%",
-        end : "top 20%",
-        scrub : 1,
-    }
+  y: 300,
+  scrollTrigger: {
+    trigger: ".final-section-quote",
+    start: "top 50%",
+    end: "top 20%",
+    scrub: 1,
+  },
 });
-
 
 const galleryTimeline = gsap.timeline({
-    scrollTrigger: {
-        trigger: ".final-section-gallery",
-        start: "top bottom",
-        scrub: 1
-    }
+  scrollTrigger: {
+    trigger: ".final-section-gallery",
+    start: "top bottom",
+    scrub: 1,
+  },
 });
 
-galleryTimeline
-    .to(".gallery-1", { x: "-5%" }, 0)
-    .to(".gallery-2", { x : 0 }, 0);
-
+galleryTimeline.to(".gallery-1", { x: "-5%" }, 0).to(".gallery-2", { x: 0 }, 0);
 
 gsap.from(".innerAnimated-div", {
-    scale : 0.5,
-    borderRadius : "3rem",
-    scrollTrigger : {
-        trigger : ".more-projects-div",
-        start : "top 90%",
-        end : "top 20%",
-        scrub : 1
-    }
-})
-
+  scale: 0.7,
+  borderRadius: "3rem",
+  scrollTrigger: {
+    trigger: ".more-projects-div",
+    start: "top 90%",
+    end: "top 20%",
+    scrub: 1,
+  },
+});
