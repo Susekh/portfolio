@@ -462,9 +462,18 @@ header {
 
 table {
     max-width: 1000px;
+    width: 100%;
     border-collapse: collapse;
     font-weight: 500;
 }
+
+td:first-child {
+    width: 30%;
+}
+td:last-child {
+    width: 70%;
+}
+
 td {
     padding: 4rem;
     font-size: 1.2rem;
@@ -695,9 +704,9 @@ tr:nth-child(even) {
 
 .more-projects-div {
     margin-top: 16rem;
-    height: 50vh;
+    height: 90vh;
     background:url(./imgs/pexels-mbanov-4753682.jpg);
-    padding: 2rem;
+    padding: 4rem;
     position: relative;
 }
 
@@ -881,10 +890,6 @@ footer {
         font-size: 24px;
         min-width: 196px;
       }
-
-    .more-projects-div {
-        height: 90vh;
-    }
     
 }
 
@@ -913,9 +918,23 @@ footer {
         max-width: 220px;
     }
 
+    table {
+        width: 100%;
+    }
 
-    td {
-        padding: 2rem;
+
+    td:first-child {
+        padding: 1px;
+    }
+
+
+    td:first-child {
+        width: 30%; 
+    }
+      
+    td:nth-child(2) {
+        padding: 8px;
+        width: 70%;
     }
 
     .work-div-2-txts p{
@@ -923,8 +942,13 @@ footer {
     }
 
     .final-section-gallery img {
-        width: 12rem;
+        width: 16rem;
         border: 12px solid var(--lines-color-light);
+    }
+
+    .more-projects-div {
+        padding: 2rem;
+        max-height: 50vh;
     }
 }
 

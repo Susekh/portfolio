@@ -242,14 +242,17 @@ function textScrambleAnimation(splitText, gsapText, delay) {
   });
 }
 
+
 // Call the function with the selectors
 textScrambleAnimation(".about-text", ".about-text > span > span", 0);
 textScrambleAnimation(".skills-text", ".skills-text > span > span", 0);
 textScrambleAnimation(".resume-text", ".resume-text > span > span", 0);
+textScrambleAnimation(".education-text", ".education-text > span > span", 0)
 textScrambleAnimation(".likings-text", ".likings-text > span > span", 0);
 textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
 
 function textRevealAnimation(selector) {
+  if(window.innerWidth <= 768) return;
   const element = document.querySelector(selector);
   const text = element.textContent.trim();
   const words = text.split(" "); // Split text into words
@@ -296,6 +299,7 @@ const loaderText = document.querySelector(".pre-loader-text");
 
 window.onload = function preLoaderFunc() {
   const loaderContent = [
+    "Open it on desktop for best experience",
     "ଜୟ ଜଗନ୍ନାଥ",
     "Namoste",
     "こんにちは",
@@ -389,7 +393,7 @@ revealContainers.forEach((container) => {
   let tl = gsap.timeline({
     scrollTrigger: {
       trigger: container,
-      start: "top 70%",
+      start: "top 50%",
       end: "top 20%",
       scrub: 1,
       toggleActions: "play none none reverse", // Adds smooth reversing
@@ -416,6 +420,7 @@ revealContainers.forEach((container) => {
 });
 
 function animateWorkElems(elem) {
+  if(window.innerWidth <= 768) return;
   // Select elements to animate based on the provided `elem` selector
   const workElems = document
     .querySelector(elem)
@@ -427,7 +432,7 @@ function animateWorkElems(elem) {
     stagger: 0.2, 
     scrollTrigger: {
       trigger: elem, 
-      start: "top 50%", 
+      start: "top 80%", 
       toggleActions: "play none none reverse",
     },
   });
@@ -517,25 +522,33 @@ animateWorkElems(".work-div-3");
 //     ScrollTrigger.refresh();
 // });
 
-gsap.from(".final-section-quote", {
-  scale: 1.5,
-  opacity: 0,
-  scrollTrigger: {
-    trigger: ".final-section",
-    start: "top 70%",
-    scrub: 1,
-  },
-});
 
-gsap.from(".final-section-gallery", {
-  y: 300,
-  scrollTrigger: {
-    trigger: ".final-section-quote",
-    start: "top 50%",
-    end: "top 20%",
-    scrub: 1,
-  },
-});
+
+(() => {
+  if(window.innerWidth <= 768) return
+  else {
+    gsap.from(".final-section-gallery", {
+    y: 300,
+    scrollTrigger: {
+      trigger: ".final-section-quote",
+      start: "top 50%",
+      end: "top 20%",
+      scrub: 1,
+    },
+  });
+  gsap.from(".final-section-quote", {
+    scale: 1.5,
+    opacity: 0,
+    scrollTrigger: {
+      trigger: ".final-section",
+      start: "top 50%",
+      scrub: 1,
+    },
+  });
+  }
+})();
+
+
 
 const galleryTimeline = gsap.timeline({
   scrollTrigger: {
