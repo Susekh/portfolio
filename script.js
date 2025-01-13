@@ -20,6 +20,7 @@ function raf(time) {
 
 requestAnimationFrame(raf);
 
+const portableNavLinks = document.querySelectorAll(".nav-portable-nav-links a");
 // Open portable navbar
 navBtn.addEventListener("click", () => {
   if (!isNavOpen) {
@@ -29,7 +30,7 @@ navBtn.addEventListener("click", () => {
       ease: "expo.out",
     });
 
-    gsap.from(".nav-portable-nav-links a", {
+    gsap.from(portableNavLinks, {
       x: 500,
       stagger: 0.05,
       ease: "expo.out",
@@ -40,8 +41,20 @@ navBtn.addEventListener("click", () => {
   }
 });
 
+
+
 // Close portable navbar
 crossBtn.addEventListener("click", closeNavBar);
+portableNavLinks.forEach(elem => elem.addEventListener("click", closeNavBar));
+document.addEventListener("click", (event) => {
+  const isClickInsideNavbar = portableNavBar.contains(event.target); // Check if clicked inside navbar
+  const isClickOnToggleButton = navBtn.contains(event.target); // Check if clicked on toggle button
+
+  // Close the navbar only if the click is outside both navbar and toggle button
+  if (!isClickInsideNavbar && !isClickOnToggleButton) {
+    closeNavBar();
+  }
+});
 
 document.addEventListener("click", (event) => {
   const isClickInsideNavbar = portableNavBar.contains(event.target);
