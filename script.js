@@ -268,7 +268,7 @@ function textRevealAnimation(selector) {
   if(window.innerWidth <= 768) return;
   const element = document.querySelector(selector);
   const text = element.textContent.trim();
-  const words = text.split(" "); // Split text into words
+  const words = text.split(" ");
 
   const characters = words
     .map((word) => {
@@ -293,8 +293,8 @@ function textRevealAnimation(selector) {
     stagger: 0.02,
     scrollTrigger: {
       trigger: element,
-      start: "top 80%",
-      end: "top 20%",
+      start: "top 100%",
+      end: "top 40%",
       scrub: 0.5,
     },
   });
@@ -408,11 +408,10 @@ revealContainers.forEach((container) => {
       trigger: container,
       start: "top 50%",
       end: "top 20%",
-      scrub: 1,
       toggleActions: "play none none reverse", // Adds smooth reversing
     },
     defaults: {
-      duration: 1.5,
+      duration: 0.7,
       ease: "Power2.out",
     },
   });
@@ -429,7 +428,7 @@ revealContainers.forEach((container) => {
         scale: 1.3,
       },
       "<"
-    ); // Using "<" makes both animations start at the same time
+    );
 });
 
 function animateWorkElems(elem) {
