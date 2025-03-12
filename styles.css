@@ -22,7 +22,7 @@
     --orb-3 : #99f6e4;
 }
 .dark-mode {
-    --background-color: #262626;
+    --background-color: #0d0d0d;
     --text-color-dark : white;
     --text-color: rgba(255, 255, 255, 0.86);
     --button-background: #333333;
