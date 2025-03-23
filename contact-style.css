@@ -1,0 +1,95 @@
+body {
+    background-color: #0d0d0d;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4rem;
+}
+
+/* Form container */
+.form-container {
+    background-color: #1e1e1e; /* Dark form background */
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
+    width: 100%;
+}
+
+h1 {
+    color: #fff;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+/* Label and Input fields */
+label {
+    display: block;
+    color: #bbb;
+    font-size: 1rem;
+    margin: 10px 0 5px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0 20px 0;
+    background-color: #2a2a2a; /* Dark input fields */
+    border: 1px solid #444;
+    color: #e1e1e1;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+input:focus, textarea:focus {
+    border-color: #066a83; /* Focus effect */
+    outline: none;
+}
+
+/* Button */
+.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #0891b2; /* Purple button */
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #057895; /* Slightly darker purple on hover */
+}
+
+/* Form response */
+#form-response {
+    margin-top: 20px;
+    color: #44d1c1; /* Success message color */
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* Media Queries for mobile responsiveness */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 30px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    input, textarea {
+        font-size: 0.9rem;
+    }
+
+    .submit-btn {
+        font-size: 1rem;
+    }
+}

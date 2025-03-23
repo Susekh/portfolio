@@ -17,11 +17,12 @@
       href="https://unpkg.com/lenis@1.1.11/dist/lenis.css"
     />
     <script defer src="./script.js"></script>
+    <script defer src="./router.js"></script>
     <title>Subhranshu Khilar</title>
   </head>
   <body>
-    <div class="responsive-wrapper">
-      <div class="pre-loader">
+    <div class="responsive-wrapper" id="main-page">
+      <div id="preLoader" class="pre-loader">
         <p class="pre-loader-text">Open it on desktop for best experience</p>
       </div>
       <nav class="nav-full">
@@ -316,7 +317,8 @@
           <div class="hireme-btn-div">
             <i class="ri-arrow-right-circle-fill isVisibleArrow"></i>
             <a
-              href="mailto:subhranshukhilar@outlook.com"
+              onclick="route()"
+              href="/contact.html"
               class="scramble-2 button-animation"
               >CONTACT ME</a
             >

@@ -14,7 +14,7 @@
     --nav-border: rgba(0, 0, 0, 0.2);
     --header-background: #ffffff;
     --img-card-color : rgba(0, 0, 0, 0.556);
-    --custom-red : #155e75;
+    --custom-blue : #155e75;
     --table-nth-color : #e0f2fe4a;
     --lines-color-light : #44403c40;
     --orb-red-1 : #67e8f98d;
@@ -33,7 +33,7 @@
     --img-card-color : rgba(255, 255, 255, 0.682);
     --table-nth-color : #0c0a0925;
     --lines-color-light : #44403c40;
-    --custom-red : #0891b2;
+    --custom-blue : #0891b2;
     --orb-3 : none;
 }
 
@@ -44,19 +44,19 @@ body::-webkit-scrollbar {
   
   
   body::-webkit-scrollbar-thumb {
-    background-color: var(--custom-red);
+    background-color: var(--custom-blue);
   }
 
 
 /* custom selection */
 ::-moz-selection {
     color: #fef3c7;
-    background: var(--custom-red);
+    background: var(--custom-blue);
 }
   
 ::selection {
     color: #fef3c7;
-    background: var(--custom-red);
+    background: var(--custom-blue);
 }
 
 * {
@@ -136,7 +136,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 9;
-    background-color: var(--custom-red);
+    background-color: var(--custom-blue);
     border-radius: 50%;
     position: fixed;
     top: 4%;
@@ -399,7 +399,7 @@ header {
     font-family: "Anton SC", sans-serif;
     font-size: 6rem;
     line-height: 0.93;
-    color: var(--custom-red);
+    color: var(--custom-blue);
     
     animation: fadeIn 0.7s ease-in-out;
     animation-delay: 1.4s;
@@ -423,7 +423,7 @@ header {
 }
 
 .header-para-2 {
-    color: var(--custom-red);
+    color: var(--custom-blue);
 }
 
 .page2-header-div {
@@ -518,7 +518,7 @@ tr:nth-child(even) {
 
 .about-div {
     display: flex;
-    color: var(--custom-red);
+    color: var(--custom-blue);
     font-size: 1rem;
 }
 
@@ -549,7 +549,7 @@ tr:nth-child(even) {
 #work > h3 {
     padding-left: 2rem;
     font-size: 1rem;
-    color: var(--custom-red);
+    color: var(--custom-blue);
 }
 
 .work-container {
@@ -602,7 +602,7 @@ tr:nth-child(even) {
     left: 0;
     width: 0%;
     height: 100%;
-    background-color: var(--custom-red);
+    background-color: var(--custom-blue);
     z-index: -1;
     transition: 0.8s;
     top: 0;
@@ -640,7 +640,7 @@ tr:nth-child(even) {
 
 .final-section-btn {
   align-items: center;
-  background-color: var(--custom-red);
+  background-color: var(--custom-blue);
   border: 0;
   border-radius: 8px;
   box-sizing: border-box;
@@ -725,7 +725,7 @@ tr:nth-child(even) {
     position: absolute;
     top: 50%;
     left: 50%;
-    color: var(--custom-red);
+    color: var(--custom-blue);
     transform: translate(-50%, -50%);
 }
 
@@ -756,7 +756,7 @@ footer {
 .hire-me-container a{
     text-decoration: none;
     border: 2px solid var(--text-color);
-    color: var(--custom-red);
+    color: var(--custom-blue);
     height: 80px;
     width: 200px;
     display: flex;
@@ -771,11 +771,11 @@ footer {
 
 .footer-hover:hover {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    color: var(--custom-red);
+    color: var(--custom-blue);
 }
 
 .footer-hover:hover a{
-    border-color: var(--custom-red);
+    border-color: var(--custom-blue);
 }
 
 .hire-me-container:hover .isVisibleArrow{
@@ -789,7 +789,7 @@ footer {
 }
 
 .isVisibleArrow {
-    color: var(--custom-red);
+    color: var(--custom-blue);
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
@@ -1064,7 +1064,7 @@ footer {
     .work-btn {
         padding-top: 8px;
         padding-bottom: 8px;
-        color: var(--custom-red);
+        color: var(--custom-blue);
     }
 
     .final-section-btn-div {
@@ -1073,7 +1073,7 @@ footer {
     }
     .final-section-btn-div a {
         margin-right: auto;
-        color: var(--custom-red);
+        color: var(--custom-blue);
     }
 
     footer {
