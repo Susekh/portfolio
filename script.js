@@ -259,9 +259,9 @@ function textScrambleAnimation(splitText, gsapText, delay) {
 // Call the function with the selectors
 textScrambleAnimation(".about-text", ".about-text > span > span", 0);
 textScrambleAnimation(".skills-text", ".skills-text > span > span", 0);
-textScrambleAnimation(".resume-text", ".resume-text > span > span", 0);
+// textScrambleAnimation(".resume-text", ".resume-text > span > span", 0);
 textScrambleAnimation(".education-text", ".education-text > span > span", 0)
-textScrambleAnimation(".likings-text", ".likings-text > span > span", 0);
+// textScrambleAnimation(".likings-text", ".likings-text > span > span", 0);
 textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
 
 function textRevealAnimation(selector) {
@@ -301,9 +301,9 @@ function textRevealAnimation(selector) {
 }
 
 // Call the function
-for (let i = 1; i <= 5; i++) {
-  textRevealAnimation(`.about-text-${i}`);
-}
+// for (let i = 1; i <= 4; i++) {
+//   textRevealAnimation(`.about-text-${i}`);
+// }
 
 // pre loader
 

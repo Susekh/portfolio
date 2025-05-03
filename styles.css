@@ -526,6 +526,10 @@ tr:nth-child(even) {
 .about-text {
     overflow: hidden;
 }
+
+.about-text-1 {
+    line-height: 2;
+}
 .about-text-2 {
     width: 70%;
     line-height: 2;
