@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="project.css" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css"
@@ -18,10 +19,12 @@
     />
     <script defer src="./script.js"></script>
     <script defer src="./router.js"></script>
+    <script defer src="./data.js"></script>
     <title>Subhranshu Khilar</title>
   </head>
   <body>
     <div class="responsive-wrapper" id="main-page">
+      <div class="mouse-follower"></div>
       <div id="preLoader" class="pre-loader">
         <p class="pre-loader-text">Open it on desktop for best experience</p>
       </div>
@@ -30,7 +33,7 @@
         <div>
           <a href="#about">About</a>
           <a href="#work">Work</a>
-          <a href="#contact">Contact</a>
+          <a href="/contact.html">Contact</a>
         </div>
       </nav>
       <div class="nav-btn">
@@ -74,7 +77,8 @@
             </h3>
             <div class="header-scramble-container">
               <p class="header-para-1 header-para-style">
-                is a full-stack web developer focused on building efficient and user-centric digital solutions.
+                is a full-stack web developer focused on building efficient and
+                user-centric digital solutions.
               </p>
             </div>
           </div>
@@ -84,7 +88,7 @@
               <i class="ri-square-fill"></i> Know more about my coding journey
             </p>
             <a
-              href="https://github.com/Susekh"
+              href="https://drive.google.com/file/d/15s3Pw64BzL4jXJryHmgWdGuhTXPNy2Dv/view?usp=sharing" target="_blank" 
               class="header-visit-btn scramble button-animation"
               >VISIT</a
             >
@@ -93,7 +97,7 @@
         <div class="page1">
           <div class="img-card-div">
             <div class="img-card-section-1">
-              <div class="img-card-section-folio">FOLIO / ୨୦୨୪</div>
+              <div class="img-card-section-folio">FOLIO / 2025</div>
               <div class="img-container img-container-animation">
                 <img src="./main-profile-pic.png" alt="profile pricture" />
               </div>
@@ -111,132 +115,123 @@
                 <p>India / ଓଡିଶା</p>
               </div>
             </div>
-            <div><i class="ri-copyright-line"></i> ସୁସେଖ // 2024</div>
+            <div><i class="ri-copyright-line"></i> susekh // 2025</div>
           </div>
         </div>
       </header>
+
       <section id="about" class="about-me">
-        <div class="about-div">
-          <h3><i class="ri-square-fill"></i> INFO</h3>
-        </div>
-        <div class="about-para-div">
-          <table>
-            <tr>
-              <td class="about-text">ABOUT</td>
-              <td class="reveal-txt-container">
-                <p class="about-text-1about-text-1">
-                  Hello! I'm Subhranshu, an enthusiastic full-stack web developer with a strong mastery of various technologies including HTML, CSS, and JavaScript, along with its numerous frameworks. I work extensively with the MERN stack and Next.js to build robust, scalable web applications.
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="skills-text">SKILLS</td>
-              <td>
-                <p class="about-text-2">FRONTNED(html, css, JavaScript, React) BACKEND(Node.js, Express, MongoDb, Postgresql)</p>
-              </td>
-            </tr>
-            <!-- <tr>
-              <td class="resume-text">RESUME</td>
-
-              <td>
-                <p class="about-text-3">link will be given</p>
-              </td>
-            </tr> -->
-            <tr>
-              <td class="education-text">EDUCATION</td>
-              <td>
-                <p class="about-text-4">A 3rd year btech student</p>
-              </td>
-            </tr>
-            <!-- <tr>
-              <td class="likings-text">LIKINGS</td>
-              <td>
-                <p class="about-text-5">sweet and pretty stuffs</p>
-              </td>
-            </tr> -->
-          </table>
-        </div>
-      </section>
-
-      <section id="work">
-        <h3><i class="ri-square-fill"></i> WORKS / PROJECTS</h3>
-        <div class="work-container">
-          <div class="work-div work-div-1">
-            <div class="work-content">
-              <div class="work-animation-div">
-                <h4 class="work-content-child-animation">TASK NET</h4>
-                <p class="work-content-child-animation">
-                  TaskNest is a simple and easy-to-use tool to manage projects and tasks. You can create boards, add tasks, and keep everything organized in one place.
-                </p>
-              </div>
-              <a
-                href="https://github.com/Susekh/TaskNest-client"
-                class="scramble-1 work-btn button-animation"
-                >VISIT🔗</a
-              >
-            </div>
-            <div class="work-img-container">
-              <div class="reveal">
-                <img
-                  class="work-img"
-                  src="./imgs/task-net.png"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-          <div class="work-div work-div-2">
-            <div class="work-content">
-              <div class="work-animation-div">
-                <h4 class="work-content-child-animation">WALDO?</h4>
-                <p class="work-content-child-animation">
-                  Where’s Waldo? is a fun game where you search for Waldo, dressed in red and white, hidden in busy and colorful scenes.
-                </p>
-              </div>
-
-              <a
-                href="https://github.com/Susekh"
-                class="scramble-1 work-btn button-animation"
-                >VISIT🔗</a
-              >
-            </div>
-            <div class="work-img-container">
-              <div class="reveal">
-                <img
-                  class="work-img"
-                  src="./imgs/Screenshot_20240421_084352.png"
-                  alt=""
-                />
-              </div>
-            </div>
-          </div>
-          <div class="work-div work-div-3">
-            <div class="work-content">
-              <div class="work-animation-div">
-                <h4 class="work-content-child-animation">TEAM SYNC</h4>
-                <p class="work-content-child-animation">
-                  A chat application built to learn and explore technologies like Next.js, Socket.IO, and development best practices.
-                </p>
-              </div>
-
-              <a
-                href="https://github.com/Susekh/team-sync"
-                class="scramble-1 work-btn button-animation"
-                >VISIT🔗</a
-              >
-            </div>
-            <div class="work-img-container">
-              <div class="reveal">
-                <img
-                  class="work-img"
-                  src="./imgs/team-sync.jfif"
-                  alt=""
-                />
-              </div>
+        <div class="">
+          <div>
+            <div class="about-text">ABOUT</div>
+            <div class="reveal-txt-container">
+              <p class="about-text-1">
+                Hello! I'm Subhranshu, an enthusiastic full-stack web developer
+                with a strong mastery of various technologies including HTML,
+                CSS, and JavaScript, along with its numerous frameworks. I work
+                extensively with the MERN stack and Next.js to build robust,
+                scalable web applications.
+              </p>
             </div>
           </div>
         </div>
       </section>
+
+      <section class="skills-body">
+        
+        <div class="skills-container">
+          <div class="skills-text">SKILLS</div>
+          <div class="grid">
+            <!-- Frontend Skills -->
+            <div class="grid-row">
+              <div class="grid-item"><p>HTML</p></div>
+              <div class="grid-item"><p>CSS</p></div>
+              <div class="grid-item"><p>JavaScript</p></div>
+              <div class="grid-item"><p>React</p></div>
+              <div class="grid-item"><p>Next.js</p></div>
+              <div class="grid-item"><p>Tailwind</p></div>
+            </div>
+
+            <!-- Backend Skills -->
+            <div class="grid-row">
+              <div class="grid-item"><p>Node.js</p></div>
+              <div class="grid-item"><p>Express</p></div>
+              <div class="grid-item"><p>Pug</p></div>
+              <div class="grid-item"><p>PostgreSQL</p></div>
+              <div class="grid-item"><p>MongoDB</p></div>
+            </div>
+
+            <!-- Deployment / Tools -->
+            <div class="grid-row">
+              <div class="grid-item"><p>CI/CD</p></div>
+              <div class="grid-item"><p>Docker</p></div>
+              <div class="grid-item"><p>Git</p></div>
+              <div class="grid-item"><p>Vercel</p></div>
+            </div>
+
+            <div class="highlight"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="skill-section">
+        <section class="intro">
+          <div class=" projects-text">
+            PROJECTS
+          </div>
+        </section>
+        <section class="awards">
+          <div class="awards-list"></div>
+        </section>
+        <div class="award-preview"></div>
+      </section>
+
+      <div class="preview-body">
+        <div class="preview">
+          <div class="preview-img"></div>
+        </div>
+        <div class="container">
+          <div class="projects">
+            <div class="project" id="header">
+              <div class="name">
+                <p>name</p>
+              </div>
+              <div class="service">
+                <p>achievements</p>
+              </div>
+              <div class="year">
+                <p>year</p>
+              </div>
+            </div>
+
+            <div class="project" id="p-1">
+              <div class="name">
+                <p>Thingqbator</p>
+              </div>
+              <div class="service">
+                <p>startup stage</p>
+              </div>
+              <div class="year">
+                <p>2024</p>
+              </div>
+            </div>
+
+            <div class="project" id="p-2">
+              <div class="name">
+                <p>IIIT hackathon</p>
+              </div>
+              <div class="service">
+                <p>3rd prize</p>
+              </div>
+              <div class="year">
+                <p>2024</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
       <section class="final-section">
         <div class="final-section-quote-container">
           <h3 class="final-section-quote">Code with purpose.</h3>
@@ -244,18 +239,21 @@
         <div class="final-section-gallery">
           <figure class="gallery-1 gallery">
             <img
-              src="./imgs/Screenshot_20240420_011401.png"
+              src="./imgs/iiit-work.jpeg"
               width="100%"
+              height="320px"
               alt=""
             />
             <img
-              src="./imgs/Screenshot_20240420_061046.png"
+              src="./imgs/iiit-group.jpeg"
               width="100%"
+              height="320px"
               alt=""
             />
             <img
-              src="./imgs/Screenshot_20240421_084352.png"
+              src="./imgs/6.jpg"
               width="100%"
+              height="320px"
               alt=""
             />
             <img
@@ -276,12 +274,12 @@
               alt=""
             />
             <img
-              src="./imgs/Screenshot_20240421_084352.png"
+              src="./imgs/4.jpg"
               width="100%"
               alt=""
             />
             <img
-              src="./imgs/Screenshot_20240420_011401.png"
+              src="./imgs/6.jpg"
               width="100%"
               alt=""
             />
@@ -297,8 +295,8 @@
             <div class="final-section-btn-div">
               <a
                 href="https://github.com/Susekh"
-                class="work-btn button-animation"
-                >More Projects🔗</a
+                class="work-btn scramble-1 button-animation"
+                >More Projects</a
               >
             </div>
           </div>

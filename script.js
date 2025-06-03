@@ -1,584 +1,983 @@
-let isNavOpen = false;
+// Data configuration
+const data = [
+  {
+    name: "Tasknet",
+    type: "Project",
+    slug: "https://tasknet.susekh.tech",
+    project: "live-link",
+    label: "Collaboration"
+  },
+  {
+    name: "Kanban & Sprint Planning",
+    type: "Project",
+    slug: "https://github.com/Susekh/TaskNest-client",
+    project: "github-link",
+    label: "Tasknet"
+  },
+  {
+    name: "Find Waldo",
+    type: "Project",
+    slug: "https://find-waldo.khilar.me",
+    project: "live-link",
+    label: "Game"
+  },
+  {
+    name: "AWS Lambda Deployment",
+    type: "Project",
+    slug: "https://github.com/Susekh/where-s_waldo",
+    project: "github-link",
+    label: "Find Waldo"
+  },
+  {
+    name: "Real time chatting",
+    type: "Project",
+    slug: "https://github.com/Susekh/team-sync",
+    project: "github-link",
+    label: "TeamSync"
+  },
+  {
+    name: "Pokématch",
+    type: "Project",
+    slug: "https://codecircuit.khilar.me",
+    project: "live-link",
+    label: "Frontend"
+  },
+  {
+    name: "Memory Game UI/UX",
+    type: "Project",
+    slug: "https://github.com/Susekh/PokeMatch",
+    project: "github-link",
+    label: "Pokématch"
+  }
+];
 
-// portable navbar btn
-const navBtn = document.querySelector(".nav-btn");
-const navHam = document.querySelector(".ri-menu-line");
-const portableNavBar = document.querySelector(".nav-portable");
-const crossBtn = document.querySelector(".nav-portable-close");
 
-// CONSIDER USING VIDEOS
+// Utility functions
+const utils = {
+  isMobile: () => window.innerWidth <= 768,
+  isDesktop: () => window.innerWidth > 1024,
+  getElement: (selector) => document.querySelector(selector),
+  getElements: (selector) => document.querySelectorAll(selector),
+  debounce: (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => func.apply(null, args), delay);
+    };
+  },
+  throttle: (func, delay) => {
+    let timeoutId;
+    let lastExecTime = 0;
+    return (...args) => {
+      const currentTime = Date.now();
+      if (currentTime - lastExecTime > delay) {
+        func.apply(null, args);
+        lastExecTime = currentTime;
+      } else {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => {
+          func.apply(null, args);
+          lastExecTime = Date.now();
+        }, delay - (currentTime - lastExecTime));
+      }
+    };
+  }
+};
 
-//for smooth scrolling
-const lenis = new Lenis();
-
-lenis.on("scroll");
-
-function raf(time) {
-  lenis.raf(time);
+// Smooth scrolling initialization
+const initLenis = () => {
+  const lenis = new Lenis();
+  lenis.on("scroll");
+  
+  const raf = (time) => {
+    lenis.raf(time);
+    requestAnimationFrame(raf);
+  };
   requestAnimationFrame(raf);
-}
+};
 
-requestAnimationFrame(raf);
-
-const portableNavLinks = document.querySelectorAll(".nav-portable-nav-links a");
-// Open portable navbar
-navBtn.addEventListener("click", () => {
-  if (!isNavOpen) {
+// Navigation module
+const Navigation = {
+  isNavOpen: false,
+  
+  init() {
+    this.cacheElements();
+    this.bindEvents();
+    this.initAnimations();
+  },
+  
+  cacheElements() {
+    this.navBtn = utils.getElement(".nav-btn");
+    this.navHam = utils.getElement(".ri-menu-line");
+    this.portableNavBar = utils.getElement(".nav-portable");
+    this.crossBtn = utils.getElement(".nav-portable-close");
+    this.portableNavLinks = utils.getElements(".nav-portable-nav-links a");
+    this.headings = utils.getElements(".nav-full > div > a");
+    this.navLinks = utils.getElements(".nav-portable-nav-links > a");
+  },
+  
+  bindEvents() {
+    // Open navigation
+    this.navBtn?.addEventListener("click", () => this.openNav());
+    
+    // Close navigation
+    this.crossBtn?.addEventListener("click", () => this.closeNav());
+    this.portableNavLinks.forEach(elem => 
+      elem.addEventListener("click", () => this.closeNav())
+    );
+    
+    // Close on outside click
+    document.addEventListener("click", (e) => this.handleOutsideClick(e));
+    
+    // Hover effects
+    this.initHoverEffects();
+  },
+  
+  openNav() {
+    if (this.isNavOpen) return;
+    
     gsap.to(".nav-portable", {
       x: 0,
       duration: 0.6,
       ease: "expo.out",
     });
 
-    gsap.from(portableNavLinks, {
+    gsap.from(this.portableNavLinks, {
       x: 500,
       stagger: 0.05,
       ease: "expo.out",
       duration: 1.5,
     });
 
-    isNavOpen = true;
-  }
-});
-
-
-
-// Close portable navbar
-crossBtn.addEventListener("click", closeNavBar);
-portableNavLinks.forEach(elem => elem.addEventListener("click", closeNavBar));
-document.addEventListener("click", (event) => {
-  const isClickInsideNavbar = portableNavBar.contains(event.target); // Check if clicked inside navbar
-  const isClickOnToggleButton = navBtn.contains(event.target); // Check if clicked on toggle button
-
-  // Close the navbar only if the click is outside both navbar and toggle button
-  if (!isClickInsideNavbar && !isClickOnToggleButton) {
-    closeNavBar();
-  }
-});
-
-document.addEventListener("click", (event) => {
-  const isClickInsideNavbar = portableNavBar.contains(event.target);
-  const isClickOnToggleButton = navBtn.contains(event.target);
-
-  if (!isClickInsideNavbar && !isClickOnToggleButton) {
-    closeNavBar();
-  }
-});
-
-function closeNavBar() {
-  if (isNavOpen) {
+    this.isNavOpen = true;
+  },
+  
+  closeNav() {
+    if (!this.isNavOpen) return;
+    
     gsap.to(".nav-portable", {
       x: "400%",
       duration: 0.3,
       ease: "expo.in",
     });
 
-    isNavOpen = false;
-  }
-}
-
-// Hover effect on nav-portable button
-function scaleAnimation(element, scaleTo, duration, ease = "none") {
-  gsap.to(element, {
-    scale: scaleTo,
-    duration: duration,
-    ease: ease,
-  });
-}
-
-navBtn.addEventListener("mouseenter", (event) => {
-  scaleAnimation(event.target, 1.2, 0.5);
-});
-
-navBtn.addEventListener("mouseleave", (event) => {
-  scaleAnimation(event.target, 1, 0.5, "power1.out");
-});
-
-// Animating nav button on scroll
-gsap.from(".nav-btn", {
-  scale: 0,
-  duration: 0.4,
-  scrollTrigger: {
-    trigger: ".about-me",
-    start: "top 50%",
-    toggleActions: "play none none reverse",
+    this.isNavOpen = false;
   },
-});
+  
+  handleOutsideClick(event) {
+    const isClickInsideNavbar = this.portableNavBar?.contains(event.target);
+    const isClickOnToggleButton = this.navBtn?.contains(event.target);
 
-gsap.to(".code-box-animated", {
-  rotation: 180,
-  repeat: -1,
-  duration: 1,
-  repeatDelay: 1,
-});
+    if (!isClickInsideNavbar && !isClickOnToggleButton) {
+      this.closeNav();
+    }
+  },
+  
+  initHoverEffects() {
+    // Nav button hover
+    if (this.navBtn) {
+      this.navBtn.addEventListener("mouseenter", (e) => {
+        gsap.to(e.target, { scale: 1.2, duration: 0.5 });
+      });
+      
+      this.navBtn.addEventListener("mouseleave", (e) => {
+        gsap.to(e.target, { scale: 1, duration: 0.5, ease: "power1.out" });
+      });
+    }
+    
+    // Drag hover effects
+    this.initDragHover(this.headings, 0.7, "power1.out", 1, 1);
+    this.initDragHover(this.navLinks, 0.1, "power1.out", 0.6, 1);
+  },
+  
+  initDragHover(elements, intensity, ease, duration, scale) {
+    elements.forEach((element) => {
+      const onMouseMove = (event) => {
+        const rect = element.getBoundingClientRect();
+        const offsetX = event.clientX - rect.left - rect.width / 2;
+        const offsetY = event.clientY - rect.top - rect.height / 2;
 
-// nav full mousehover animation
-const headings = document.querySelectorAll(".nav-full > div > a");
+        gsap.to(element, {
+          x: offsetX * intensity,
+          y: offsetY * intensity,
+          ease: ease,
+          scale: 1.2,
+          duration: duration,
+        });
+      };
+      
+      element.addEventListener("mouseover", () => {
+        element.addEventListener("mousemove", onMouseMove);
+      });
 
-function dragHover(headings, intensity, ease, duration, scale) {
-  headings.forEach((heading) => {
-    heading.addEventListener("mouseover", () => {
-      heading.addEventListener("mousemove", onMouseMove);
-    });
-
-    heading.addEventListener("mouseout", () => {
-      heading.removeEventListener("mousemove", onMouseMove);
-      gsap.to(heading, {
-        x: 0,
-        y: 0,
-        ease: "",
-        scale: scale,
-        duration: duration,
+      element.addEventListener("mouseout", () => {
+        element.removeEventListener("mousemove", onMouseMove);
+        gsap.to(element, {
+          x: 0,
+          y: 0,
+          ease: "",
+          scale: scale,
+          duration: duration,
+        });
       });
     });
-  });
-
-  function onMouseMove(event) {
-    const heading = event.target;
-    const rect = heading.getBoundingClientRect();
-    const offsetX = event.clientX - rect.left - rect.width / 2;
-    const offsetY = event.clientY - rect.top - rect.height / 2;
-
-    gsap.to(heading, {
-      x: offsetX * intensity,
-      y: offsetY * intensity,
-      ease: ease,
-      scale: 1.2,
-      duration: duration,
+  },
+  
+  initAnimations() {
+    // Nav button scroll animation
+    gsap.from(".nav-btn", {
+      scale: 0,
+      duration: 0.4,
+      scrollTrigger: {
+        trigger: ".about-me",
+        start: "top 50%",
+        toggleActions: "play none none reverse",
+      },
     });
   }
-}
-
-dragHover(headings, 0.7, "power1.out", 1, 1);
-
-const navLinks = document.querySelectorAll(".nav-portable-nav-links > a");
-dragHover(navLinks, 0.1, "power1.out", 0.6, 1);
-
-//header
-
-// header - img reveal animation
-gsap.from(".img-container > img", {
-  y: -500,
-  ease: "expo.out",
-  duration: 1.5,
-  delay: 2.2,
-});
-
-// header -  text scramble
-const initScrambleEffect = (selector) => {
-  const scrambleText = document.querySelector(selector);
-  const originalText = scrambleText.innerText;
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const duration = 0.5;
-
-  const scramble = (element) => {
-    const length = originalText.length;
-    const scrambleValue = new Array(length)
-      .fill("")
-      .map(() => chars[Math.floor(Math.random() * chars.length)])
-      .join("");
-
-    gsap.to(element, {
-      duration: duration,
-      text: {
-        value: scrambleValue,
-        newClass: "scramble",
-      },
-      ease: "none",
-      onComplete: () => (element.innerText = originalText),
-    });
-  };
-
-  let isScrambling = false;
-
-  scrambleText.addEventListener("mouseover", () => {
-    if (!isScrambling) {
-      isScrambling = true;
-      scramble(scrambleText);
-
-      setTimeout(() => {
-        isScrambling = false;
-      }, duration * 1000);
-    }
-  });
 };
 
-initScrambleEffect(".scramble");
-initScrambleEffect(".scramble-1");
-initScrambleEffect(".scramble-2");
+// Text animation module
+const TextAnimations = {
+  init() {
+    this.initScrambleEffects();
+    this.initTextRevealAnimations();
+  },
+  
+  initScrambleEffects() {
+    const scrambleSelectors = [".scramble", ".scramble-1", ".scramble-2"];
+    scrambleSelectors.forEach(selector => this.initScrambleEffect(selector));
+    
+    // Text scramble animations with scroll trigger
+    this.textScrambleAnimation(".about-text", ".about-text > span > span", 0);
+    this.textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
+    this.textScrambleAnimation(".skills-text", ".skills-text > span > span", 0);
+    this.textScrambleAnimation(".projects-text", ".projects-text > span > span", 0);
+  },
+  
+  initScrambleEffect(selector) {
+    const scrambleText = utils.getElement(selector);
+    if (!scrambleText) return;
+    
+    const originalText = scrambleText.innerText;
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const duration = 0.5;
+    let isScrambling = false;
 
-function textScrambleAnimation(splitText, gsapText, delay) {
-  const aboutP = document.querySelector(splitText);
-  const aboutText = aboutP.textContent.trim();
-  const words = aboutText.split(/\s+/);
-  aboutP.innerHTML = words
-    .map((word) => `<span class="span-line"><span>${word} </span></span>`)
-    .join(" ");
-
-  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-  // Function to scramble text
-  const scrambleText = (element, duration) => {
-    const originalText = element.innerText; // Store original text
-    const length = originalText.length;
-    const scrambleValue = new Array(length)
-      .fill("")
-      .map(() => chars[Math.floor(Math.random() * chars.length)])
-      .join("");
-
-    gsap.to(element, {
-      duration: duration,
-      text: scrambleValue,
-      ease: "none",
-      delay: delay,
-      onComplete: () => {
-        gsap.to(element, {
-          duration: 0.5,
-          text: originalText,
-          ease: "none",
-        });
-      },
-    });
-  };
-
-  ScrollTrigger.create({
-    trigger: splitText,
-    start: "top 80%",
-    end: "top 20%",
-    onEnter: () => {
-      // Scramble each span on scroll
-      document.querySelectorAll(gsapText).forEach((span) => {
-        scrambleText(span, 0.3);
-      });
-    },
-    toggleActions: "play none none reset",
-  });
-}
-
-
-// Call the function with the selectors
-textScrambleAnimation(".about-text", ".about-text > span > span", 0);
-textScrambleAnimation(".skills-text", ".skills-text > span > span", 0);
-// textScrambleAnimation(".resume-text", ".resume-text > span > span", 0);
-textScrambleAnimation(".education-text", ".education-text > span > span", 0)
-// textScrambleAnimation(".likings-text", ".likings-text > span > span", 0);
-textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
-
-function textRevealAnimation(selector) {
-  if(window.innerWidth <= 768) return;
-  const element = document.querySelector(selector);
-  const text = element.textContent.trim();
-  const words = text.split(" ");
-
-  const characters = words
-    .map((word) => {
-      // For each word, map each character into a span, then join with empty string
-      const wrappedChars = word
-        .split("")
-        .map((char) => {
-          return `<span class="char-container"><span class="char-line">${char}</span></span>`;
-        })
+    const scramble = (element) => {
+      const length = originalText.length;
+      const scrambleValue = new Array(length)
+        .fill("")
+        .map(() => chars[Math.floor(Math.random() * chars.length)])
         .join("");
 
-      // Return the word wrapped with spaces
-      return `<span class="word-container">${wrappedChars}</span>`;
-    })
-    .join(" "); // Join words with spaces
+      gsap.to(element, {
+        duration: duration,
+        text: {
+          value: scrambleValue,
+          newClass: "scramble",
+        },
+        ease: "none",
+        onComplete: () => (element.innerText = originalText),
+      });
+    };
 
-  element.innerHTML = characters;
-
-  gsap.from(element.querySelectorAll(".char-line"), {
-    y: 25,
-    duration: 1,
-    stagger: 0.02,
-    scrollTrigger: {
-      trigger: element,
-      start: "top 100%",
-      end: "top 40%",
-      scrub: 0.5,
-    },
-  });
-}
-
-// Call the function
-// for (let i = 1; i <= 4; i++) {
-//   textRevealAnimation(`.about-text-${i}`);
-// }
-
-// pre loader
-
-const preLoader = document.querySelector(".pre-loader");
-const loaderText = document.querySelector(".pre-loader-text");
-
-window.onload = function preLoaderFunc() {
-  const loaderContent = [
-    "Open it on desktop for best experience",
-    "ଜୟ ଜଗନ୍ନାଥ",
-    "Namoste",
-    "こんにちは",
-    "नमस्ते",
-    "Hola",
-    "Hi",
-  ];
-  let currentIndex = 0;
-
-  const intervalId = setInterval(() => {
-    loaderText.textContent = loaderContent[currentIndex];
-    currentIndex = (currentIndex + 1) % loaderContent.length;
-  }, 100);
-
-  setTimeout(() => {
-    clearInterval(intervalId);
-
-    gsap.to(preLoader, {
-      display: "none",
-      y: "-100%",
-      ease: "expo.in",
+    scrambleText.addEventListener("mouseover", () => {
+      if (isScrambling) return;
+      
+      isScrambling = true;
+      scramble(scrambleText);
+      setTimeout(() => { isScrambling = false; }, duration * 1000);
     });
+  },
+  
+  textScrambleAnimation(splitText, gsapText, delay) {
+    const element = utils.getElement(splitText);
+    if (!element) return;
+    
+    const text = element.textContent.trim();
+    const words = text.split(/\s+/);
+    element.innerHTML = words
+      .map((word) => `<span class="span-line"><span>${word} </span></span>`)
+      .join(" ");
+
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    const scrambleText = (element, duration) => {
+      const originalText = element.innerText;
+      const length = originalText.length;
+      const scrambleValue = new Array(length)
+        .fill("")
+        .map(() => chars[Math.floor(Math.random() * chars.length)])
+        .join("");
+
+      gsap.to(element, {
+        duration: duration,
+        text: scrambleValue,
+        ease: "none",
+        delay: delay,
+        onComplete: () => {
+          gsap.to(element, {
+            duration: 0.5,
+            text: originalText,
+            ease: "none",
+          });
+        },
+      });
+    };
+
+    ScrollTrigger.create({
+      trigger: splitText,
+      start: "top 80%",
+      end: "top 20%",
+      onEnter: () => {
+        utils.getElements(gsapText).forEach((span) => {
+          scrambleText(span, 0.3);
+        });
+      },
+      toggleActions: "play none none reset",
+    });
+  },
+  
+  initTextRevealAnimations() {
+    // Only on desktop
+    if (utils.isMobile()) return;
+    
+    // Can be extended for multiple selectors if needed
+    // this.textRevealAnimation(`.about-text-${i}`) for i in range
+  },
+  
+  textRevealAnimation(selector) {
+    const element = utils.getElement(selector);
+    if (!element) return;
+    
+    const text = element.textContent.trim();
+    const words = text.split(" ");
+
+    const characters = words
+      .map((word) => {
+        const wrappedChars = word
+          .split("")
+          .map((char) => `<span class="char-container"><span class="char-line">${char}</span></span>`)
+          .join("");
+        return `<span class="word-container">${wrappedChars}</span>`;
+      })
+      .join(" ");
+
+    element.innerHTML = characters;
+
+    gsap.from(element.querySelectorAll(".char-line"), {
+      y: 25,
+      duration: 1,
+      stagger: 0.02,
+      scrollTrigger: {
+        trigger: element,
+        start: "top 100%",
+        end: "top 40%",
+        scrub: 0.5,
+      },
+    });
+  }
+};
+
+// Header animations
+const HeaderAnimations = {
+  init() {
+    this.initImageReveal();
+    this.initHeaderText();
+  },
+  
+  initImageReveal() {
+    gsap.from(".img-container > img", {
+      y: -500,
+      ease: "expo.out",
+      duration: 1.5,
+      delay: 2.2,
+    });
+  },
+  
+  initHeaderText() {
     gsap.from(".header-para", {
       y: 10,
       opacity: 0,
       ease: "expo.out",
       delay: 0.5,
     });
-  }, 1000);
+  }
 };
 
-// dark and light mode
+// Preloader module
+const Preloader = {
+  init() {
+    window.addEventListener('load', () => this.handlePreloader());
+  },
+  
+  handlePreloader() {
+    const preLoader = utils.getElement(".pre-loader");
+    const loaderText = utils.getElement(".pre-loader-text");
+    
+    if (!preLoader || !loaderText) return;
+    
+    const loaderContent = [
+      "Open it on desktop for best experience",
+      "ଜୟ ଜଗନ୍ନାଥ",
+      "Namoste",
+      "こんにちは",
+      "नमस्ते",
+      "Hola",
+      "Hi",
+    ];
+    
+    let currentIndex = 0;
+    const intervalId = setInterval(() => {
+      loaderText.textContent = loaderContent[currentIndex];
+      currentIndex = (currentIndex + 1) % loaderContent.length;
+    }, 100);
 
-document.addEventListener("DOMContentLoaded", () => {
-  const toggleButton = document.getElementById("theme-toggle");
-
-  // Check for saved user preference
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark-mode") {
-    document.body.classList.add("dark-mode");
+    setTimeout(() => {
+      clearInterval(intervalId);
+      gsap.to(preLoader, {
+        display: "none",
+        y: "-100%",
+        ease: "expo.in",
+      });
+    }, 1000);
   }
+};
 
-  toggleButton.addEventListener("click", () => {
-    if (document.body.classList.contains("dark-mode")) {
-      document.body.classList.remove("dark-mode");
-      localStorage.setItem("theme", ""); // Remove preference
-    } else {
+// Theme toggle module
+const ThemeToggle = {
+  init() {
+    document.addEventListener("DOMContentLoaded", () => this.setupThemeToggle());
+  },
+  
+  setupThemeToggle() {
+    const toggleButton = utils.getElement("#theme-toggle");
+    if (!toggleButton) return;
+
+    // Check for saved user preference
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark-mode") {
       document.body.classList.add("dark-mode");
-      localStorage.setItem("theme", "dark-mode"); // Save preference
     }
-  });
-});
 
-// Work part gsap animation
-
-// const initialClipPaths = [
-//     "polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)",
-//     "polygon(33% 0%, 33% 0%, 33% 0%, 33% 0%)",
-//     "polygon(66% 0%, 66% 0%, 66% 0%, 66% 0%)",
-//     "polygon(0% 33%, 0% 33%, 0% 33%, 0% 33%)",
-//     "polygon(33% 33%, 33% 33%, 33% 33%, 33% 33%)",
-//     "polygon(66% 33%, 66% 33%, 66% 33%, 66% 33%)",
-//     "polygon(0% 66%, 0% 66%, 0% 66%, 0% 66%)",
-//     "polygon(33% 66%, 33% 66%, 33% 66%, 33% 66%)",
-//     "polygon(66% 66%, 66% 66%, 66% 66%, 66% 66%)",
-// ];
-
-// const finalClipPaths = [
-//     "polygon(0% 0%, 33.5% 0%, 33.5% 33%, 0% 33.5%)",
-//     "polygon(33% 0%, 66.5% 0%, 66.5% 33%, 33% 33.5%)",
-//     "polygon(66% 0%, 100% 0%, 100% 33%, 66% 33.5%)",
-//     "polygon(0% 33%, 33.5% 33%, 33.5% 66%, 0% 66.5%)",
-//     "polygon(33% 33%, 66.5% 33%, 66.5% 66%, 33% 66.5%)",
-//     "polygon(66% 33%, 100% 33%, 100% 66%, 66% 66.5%)",
-//     "polygon(0% 66%, 33.5% 66%, 33.5% 100%, 0% 100%)",
-//     "polygon(33% 66%, 66.5% 66%, 66.5% 100%, 33% 100%)",
-//     "polygon(66% 66%, 100% 66%, 100% 100%, 66% 100%)",
-// ];
-
-let revealContainers = document.querySelectorAll(".reveal");
-
-revealContainers.forEach((container) => {
-  if (window.innerWidth < 1024) return;
-  let image = container.querySelector("img");
-
-  // Apply will-change to optimize performance during animations
-  container.style.willChange = "transform, opacity";
-  image.style.willChange = "transform";
-
-  // Create a timeline with scrollTrigger
-  let tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: container,
-      start: "top 50%",
-      end: "top 20%",
-      toggleActions: "play none none reverse", // Adds smooth reversing
-    },
-    defaults: {
-      duration: 0.7,
-      ease: "Power2.out",
-    },
-  });
-
-  // Chain animations for better readability and control
-  tl.set(container, { autoAlpha: 1 })
-    .from(container, {
-      xPercent: -100,
-    })
-    .from(
-      image,
-      {
-        xPercent: 100,
-        scale: 1.3,
-      },
-      "<"
-    );
-});
-
-function animateWorkElems(elem) {
-  if(window.innerWidth <= 768) return;
-  // Select elements to animate based on the provided `elem` selector
-  const workElems = document
-    .querySelector(elem)
-    .querySelectorAll(":scope > div > div > .work-content-child-animation");
-
-  // Apply GSAP animation
-  gsap.from(workElems, {
-    y: 100, 
-    stagger: 0.2, 
-    scrollTrigger: {
-      trigger: elem, 
-      start: "top 80%", 
-      toggleActions: "play none none reverse",
-    },
-  });
-}
-
-// Example usage
-animateWorkElems(".work-div-1");
-animateWorkElems(".work-div-2");
-animateWorkElems(".work-div-3");
-
-// Data for images
-// const contentData = [
-//     { imgSrc: "/Screenshot_20240420_011401.a75d83eb.png", title : "TEAMSYNC", pg : "01", index : "3" },
-//     { imgSrc: "./Screenshot_20240420_061046.81e2a5d3.png", title : "CAFFEE", pg : "02" , index : "4"},
-//     { imgSrc: "./Screenshot_20240421_084352.5c5af00c.png", title : "WALDO", pg : "03", index : "5" },
-// ];
-
-// let currentIndex = -1;
-
-// // Function to update the content based on the current index
-// function updateContent(index) {
-//     const content = contentData[index]
-//     if (index === currentIndex) return;
-//     const TitleElem = document.querySelector(".work-div-1  h3");
-//     const pgElem = document.querySelector(".work-div-1 p")
-//     const imgElement = document.querySelector('.work-img-div img');
-//         // GSAP animation for fading out the old image and fading in the new one
-//         gsap.to(imgElement, { opacity: 0, duration: 0.3, onComplete: () => {
-//             imgElement.src = content.imgSrc;
-//             TitleElem.innerText = content.title;
-//             pgElem .innerText= `P / ${content.pg}`;
-//             gsap.to(imgElement, { opacity: 1, duration: 0.6});
-//         }});
-
-//     currentIndex = index;
-// }
-
-// // Function to determine device type and set thresholds
-// function getThresholds() {
-//     const viewportHeight = window.innerHeight;
-
-//     let threshold1, threshold2;
-
-//     if (window.matchMedia("(max-width: 767px)").matches) {
-//         // Mobile devices
-//         threshold1 = viewportHeight * 3;
-//         threshold2 = viewportHeight * 4;
-//     }else {
-//         // PCs
-//         threshold1 = viewportHeight * 3.5;
-//         threshold2 = viewportHeight * 4;
-//     }
-
-//     return { threshold1, threshold2 };
-// }
-
-// // Function to handle scroll events
-// function handleScroll() {
-//     const scrollY = window.scrollY;
-//     const { threshold1, threshold2 } = getThresholds();
-
-//     if (scrollY < threshold1) {
-//         updateContent(0);
-//     } else if (scrollY >= threshold1 && scrollY < threshold2) {
-//         updateContent(1);
-//     } else if (scrollY >= threshold2) {
-//         updateContent(2);
-//     }
-// }
-
-// // Initial call to handleScroll to set the correct content based on initial scroll position
-// window.addEventListener("load", handleScroll);
-
-// // Adding event listener for scroll
-// window.addEventListener("scroll", handleScroll);
-
-// ScrollTrigger.create({
-//     trigger: "#work",
-//     start: "top top",
-//     end: () => "+=" + window.innerHeight * 3,
-//     pin: true,
-//     scrub : true,
-// });
-
-// // Handle resizing for responsive adjustments
-// window.addEventListener("resize", () => {
-//     ScrollTrigger.refresh();
-// });
-
-
-
-(() => {
-  if(window.innerWidth <= 768) return
-  else {
-    gsap.from(".final-section-gallery", {
-    y: 300,
-    scrollTrigger: {
-      trigger: ".final-section-quote",
-      start: "top 50%",
-      end: "top 20%",
-      scrub: 1,
-    },
-  });
-  gsap.from(".final-section-quote", {
-    scale: 1.5,
-    opacity: 0,
-    scrollTrigger: {
-      trigger: ".final-section",
-      start: "top 50%",
-      scrub: 1,
-    },
-  });
+    toggleButton.addEventListener("click", () => {
+      const isDarkMode = document.body.classList.contains("dark-mode");
+      
+      if (isDarkMode) {
+        document.body.classList.remove("dark-mode");
+        localStorage.setItem("theme", "");
+      } else {
+        document.body.classList.add("dark-mode");
+        localStorage.setItem("theme", "dark-mode");
+      }
+    });
   }
-})();
+};
 
-
-
-const galleryTimeline = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".final-section-gallery",
-    start: "top bottom",
-    scrub: 1,
+// Scroll animations module
+const ScrollAnimations = {
+  init() {
+    this.initMiscAnimations();
+    this.initFinalSectionAnimations();
+    this.initGalleryAnimations();
   },
+  
+  initMiscAnimations() {
+    // Code box rotation
+    gsap.to(".code-box-animated", {
+      rotation: 180,
+      repeat: -1,
+      duration: 1,
+      repeatDelay: 1,
+    });
+  },
+  
+  initFinalSectionAnimations() {
+    if (utils.isMobile()) return;
+    
+    gsap.from(".final-section-gallery", {
+      y: 300,
+      scrollTrigger: {
+        trigger: ".final-section-quote",
+        start: "top 50%",
+        end: "top 20%",
+        scrub: 1,
+      },
+    });
+    
+    gsap.from(".final-section-quote", {
+      scale: 1.5,
+      opacity: 0,
+      scrollTrigger: {
+        trigger: ".final-section",
+        start: "top 50%",
+        scrub: 1,
+      },
+    });
+  },
+  
+  initGalleryAnimations() {
+    const galleryTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".final-section-gallery",
+        start: "top bottom",
+        scrub: 1,
+      },
+    });
+
+    galleryTimeline
+      .to(".gallery-1", { x: "-5%" }, 0)
+      .to(".gallery-2", { x: 0 }, 0);
+
+    gsap.from(".innerAnimated-div", {
+      scale: 0.7,
+      borderRadius: "3rem",
+      scrollTrigger: {
+        trigger: ".more-projects-div",
+        start: "top 90%",
+        end: "top 20%",
+        scrub: 1,
+      },
+    });
+  }
+};
+
+// Project hover effects
+const ProjectHover = {
+  init() {
+    this.cacheElements();
+    if (this.hasAllElements()) {
+      this.bindEvents();
+    }
+  },
+  
+  cacheElements() {
+    this.projects = utils.getElement(".projects");
+    this.preview = utils.getElement(".preview");
+    this.previewImg = utils.getElement(".preview-img");
+  },
+  
+  hasAllElements() {
+    return this.projects && this.preview && this.previewImg;
+  },
+  
+  bindEvents() {
+    this.isInside = false;
+    this.bgPositions = {
+      "p-1": "0 33%",
+      "p-2": "0 66%",
+      "p-3": "0 100%",
+    };
+
+    window.addEventListener("mousemove", (e) => this.handleMouseMove(e));
+    
+    Array.from(this.projects.children).forEach((project) => {
+      project.addEventListener("mousemove", (e) => {
+        this.moveProject(e);
+        this.moveProjectImg(project);
+      });
+    });
+  },
+  
+  handleMouseMove(e) {
+    const mouseInside = this.isMouseInsideContainer(e);
+
+    if (mouseInside !== this.isInside) {
+      this.isInside = mouseInside;
+      gsap.to(this.preview, {
+        scale: this.isInside ? 1 : 0,
+        duration: 0.3
+      });
+    }
+  },
+  
+  isMouseInsideContainer(e) {
+    const rect = this.projects.getBoundingClientRect();
+    return (
+      e.clientX >= rect.left &&
+      e.clientX <= rect.right &&
+      e.clientY >= rect.top &&
+      e.clientY <= rect.bottom
+    );
+  },
+  
+  moveProject(e) {
+    const rect = this.preview.getBoundingClientRect();
+    const offsetX = rect.width / 2;
+    const offsetY = rect.height / 2;
+
+    this.preview.style.left = `${e.pageX - offsetX}px`;
+    this.preview.style.top = `${e.pageY - offsetY}px`;
+  },
+  
+  moveProjectImg(project) {
+    const projectId = project.id;
+    gsap.to(this.previewImg, {
+      backgroundPosition: this.bgPositions[projectId] || "0 0",
+      duration: 0.4
+    });
+  }
+};
+
+// Skills/Awards section
+const SkillsSection = {
+  POSITIONS: {
+    BOTTOM: 0,
+    MIDDLE: -80,
+    TOP: -160,
+  },
+  
+  init() {
+    this.cacheElements();
+    this.initState();
+    this.populateAwards();
+    this.bindEvents();
+  },
+  
+  cacheElements() {
+    this.awardsListContainer = utils.getElement(".awards-list");
+    this.awardPreview = utils.getElement(".award-preview");
+  },
+  
+  initState() {
+    this.lastMousePosition = { x: 0, y: 0 };
+    this.activeAward = null;
+    this.ticking = false;
+    this.mouseTimeout = null;
+    this.isMouseMoving = false;
+  },
+  
+  populateAwards() {
+    if (!Array.isArray(data) || !this.awardsListContainer) return;
+    
+    data.forEach((award) => {
+      const awardElement = document.createElement("div");
+      awardElement.className = "award";
+      awardElement.innerHTML = `
+        <div class="award-wrapper">
+          <div class="award-name">
+            <h1 class="skill-h1">${award.name}</h1>
+            <h1 class="skill-h1">${award.type}</h1>
+          </div>
+          <div class="award-project">
+            <h1>${award.project}</h1>
+            <h1>${award.label}</h1>
+          </div>
+          <div class="award-name">
+            <h1 class="skill-h1">${award.name}</h1>
+            <h1 class="skill-h1">${award.type}</h1> 
+          </div>
+        </div>
+      `;
+      this.awardsListContainer.appendChild(awardElement);
+    });
+    
+    this.awardsElements = utils.getElements(".award");
+  },
+  
+  bindEvents() {
+    const throttledMouseMove = utils.throttle((e) => this.handleMouseMove(e), 16);
+    const throttledScroll = utils.throttle(() => this.handleScroll(), 16);
+    
+    document.addEventListener("mousemove", throttledMouseMove);
+    document.addEventListener("scroll", throttledScroll, { passive: true });
+    
+    this.bindAwardEvents();
+  },
+  
+  handleMouseMove(e) {
+    this.lastMousePosition.x = e.clientX;
+    this.lastMousePosition.y = e.clientY;
+    this.isMouseMoving = true;
+
+    if (this.mouseTimeout) clearTimeout(this.mouseTimeout);
+
+    const isInside = this.isMouseInsideAwardsList();
+
+    if (isInside) {
+      this.mouseTimeout = setTimeout(() => {
+        this.isMouseMoving = false;
+        this.cleanupOldImages();
+      }, 2000);
+    }
+
+    this.animatePreview();
+  },
+  
+  handleScroll() {
+    if (!this.ticking) {
+      requestAnimationFrame(() => this.updateAwards());
+      this.ticking = true;
+    }
+  },
+  
+  isMouseInsideAwardsList() {
+    if (!this.awardsListContainer) return false;
+    
+    const rect = this.awardsListContainer.getBoundingClientRect();
+    return (
+      this.lastMousePosition.x >= rect.left &&
+      this.lastMousePosition.x <= rect.right &&
+      this.lastMousePosition.y >= rect.top &&
+      this.lastMousePosition.y <= rect.bottom
+    );
+  },
+  
+  animatePreview() {
+    const isOutside = !this.isMouseInsideAwardsList();
+
+    if (isOutside && this.awardPreview) {
+      const previewImages = this.awardPreview.querySelectorAll("img");
+      previewImages.forEach((img) => {
+        gsap.to(img, {
+          scale: 0,
+          duration: 0.4,
+          ease: "power2.out",
+          onComplete: () => img.remove(),
+        });
+      });
+    }
+  },
+  
+  updateAwards() {
+    this.animatePreview();
+
+    if (this.activeAward) {
+      const rect = this.activeAward.getBoundingClientRect();
+      const isStillOver = (
+        this.lastMousePosition.x >= rect.left &&
+        this.lastMousePosition.x <= rect.right &&
+        this.lastMousePosition.y >= rect.top &&
+        this.lastMousePosition.y <= rect.bottom
+      );
+
+      if (!isStillOver) {
+        const wrapper = this.activeAward.querySelector(".award-wrapper");
+        const leavingFromTop = this.lastMousePosition.y < rect.top + rect.height / 2;
+        gsap.to(wrapper, {
+          y: leavingFromTop ? this.POSITIONS.TOP : this.POSITIONS.BOTTOM,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+        this.activeAward = null;
+      }
+    }
+
+    this.awardsElements.forEach((award) => {
+      if (award === this.activeAward) return;
+
+      const rect = award.getBoundingClientRect();
+      const isMouseOver = (
+        this.lastMousePosition.x >= rect.left &&
+        this.lastMousePosition.x <= rect.right &&
+        this.lastMousePosition.y >= rect.top &&
+        this.lastMousePosition.y <= rect.bottom
+      );
+
+      if (isMouseOver && this.isMouseMoving) {
+        const wrapper = award.querySelector(".award-wrapper");
+        gsap.to(wrapper, {
+          y: this.POSITIONS.MIDDLE,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+        this.activeAward = award;
+      }
+    });
+
+    this.ticking = false;
+  },
+  
+  cleanupOldImages() {
+    if (!this.awardPreview) return;
+    
+    const images = this.awardPreview.querySelectorAll("img");
+    if (images.length > 1) {
+      const lastImage = images[images.length - 1];
+      images.forEach((img) => {
+        if (img !== lastImage) {
+          gsap.to(img, {
+            scale: 0,
+            duration: 0.4,
+            ease: "power2.out",
+            onComplete: () => img.remove(),
+          });
+        }
+      });
+    }
+  },
+  
+  bindAwardEvents() {
+    this.awardsElements.forEach((award, index) => {
+      const wrapper = award.querySelector(".award-wrapper");
+      let currentPosition = this.POSITIONS.TOP;
+
+      award.addEventListener("mouseenter", (e) => {
+        this.activeAward = award;
+        const rect = award.getBoundingClientRect();
+        const enterFromTop = e.clientY < rect.top + rect.height / 2;
+
+        if (enterFromTop || currentPosition === this.POSITIONS.BOTTOM) {
+          currentPosition = this.POSITIONS.MIDDLE;
+          gsap.to(wrapper, {
+            y: this.POSITIONS.MIDDLE,
+            duration: 0.4,
+            ease: "power2.out",
+          });
+        }
+
+        this.createPreviewImage(index);
+      });
+
+      award.addEventListener("mouseleave", (e) => {
+        this.activeAward = null;
+        const rect = award.getBoundingClientRect();
+        const leavingFromTop = e.clientY < rect.top + rect.height / 2;
+
+        currentPosition = leavingFromTop ? this.POSITIONS.TOP : this.POSITIONS.BOTTOM;
+        gsap.to(wrapper, {
+          y: currentPosition,
+          duration: 0.4,
+          ease: "power2.out",
+        });
+      });
+    });
+  },
+  
+  createPreviewImage(index) {
+    if (!this.awardPreview) return;
+    
+    const img = document.createElement("img");
+    img.src = `./imgs/${index + 1}.jpg`;
+    img.style.position = "absolute";
+    img.style.top = 0;
+    img.style.left = 0;
+    img.style.scale = 0;
+    img.style.zIndex = Date.now();
+
+    this.awardPreview.appendChild(img);
+
+    gsap.to(img, {
+      scale: 1,
+      duration: 0.4,
+      ease: "power2.out",
+    });
+  }
+};
+
+// new skills sec
+
+const container = document.querySelector(".grid");
+const highlight = document.querySelector(".highlight");
+const gridItems = document.querySelectorAll(".grid-item");
+const firstItem = document.querySelector(".grid-item");
+
+const highlightcolors = [
+  '#2563EB', // Blue-600
+  '#38BDF8', // Sky-400
+  '#1E3A8A', // Indigo-800
+  '#E11D48', // Rose-600 (bold pink/red)
+  '#F97316', // Orange-500 (accent)
+  '#9333EA', // Purple-600 (lavender contrast)
+  '#0EA5E9', // Cyan-500
+  '#10B981', // Emerald-500 (aqua-green)
+  '#F43F5E', // Pink-500
+  '#3B82F6', // Blue-500
+];
+
+gridItems.forEach((item, index) => {
+  item.dataset.color = highlightcolors[index % highlightcolors.length];
 });
 
-galleryTimeline.to(".gallery-1", { x: "-5%" }, 0).to(".gallery-2", { x: 0 }, 0);
+const moveToElement = (element) => {
+  if (element) {
+    const rect = element.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
 
-gsap.from(".innerAnimated-div", {
-  scale: 0.7,
-  borderRadius: "3rem",
-  scrollTrigger: {
-    trigger: ".more-projects-div",
-    start: "top 90%",
-    end: "top 20%",
-    scrub: 1,
-  },
+    highlight.style.transform = `translate(${rect.left - containerRect.left}px, ${rect.top - containerRect.top}px)`;
+    highlight.style.width = `${rect.width}px`;
+    highlight.style.height = `${rect.height}px`;
+    highlight.style.backgroundColor = element.dataset.color;
+  }
+};
+
+const moveHighlight = (e) => {
+  const hoveredElement = document.elementFromPoint(e.clientX, e.clientY);
+  if (hoveredElement) {
+    const target = hoveredElement.closest(".grid-item");
+    if (target) moveToElement(target);
+  }
+};
+
+moveToElement(firstItem);
+
+container.addEventListener("mousemove", moveHighlight);
+
+
+// mouse move
+
+const follower = document.querySelector(".mouse-follower");
+
+let mouseX = 0, mouseY = 0;
+let currentX = 0, currentY = 0;
+const speed = 0.2;
+
+let lastX = 0, lastY = 0;
+let lastMoveTime = performance.now();
+
+const animate = () => {
+  const now = performance.now();
+  const dx = mouseX - currentX;
+  const dy = mouseY - currentY;
+  const velocity = Math.sqrt(dx * dx + dy * dy);
+
+  currentX += dx * speed;
+  currentY += dy * speed;
+
+  const isMoving = velocity > 0.5;
+  const stretchFactor = isMoving ? 1 + Math.min(velocity / 100, 0.1) : 1;
+
+  follower.style.transform = `
+    translate(${currentX}px, ${currentY}px)
+    scaleX(${stretchFactor})
+    scaleY(${2 - stretchFactor})
+  `;
+
+  requestAnimationFrame(animate);
+};
+
+window.addEventListener("mousemove", (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  lastMoveTime = performance.now();
 });
+
+animate();
+
+
+
+// Main initialization
+const App = {
+  init() {
+    // Initialize smooth scrolling first
+    initLenis();
+    
+    // Initialize all modules
+    Navigation.init();
+    TextAnimations.init();
+    HeaderAnimations.init();
+    Preloader.init();
+    ThemeToggle.init();
+    ScrollAnimations.init();
+    ProjectHover.init();
+    SkillsSection.init();
+  }
+};
+
+// Start the application when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => App.init());
+} else {
+  App.init();
+}
