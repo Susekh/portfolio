@@ -5,52 +5,51 @@ const data = [
     type: "Project",
     slug: "https://tasknet.susekh.tech",
     project: "live-link",
-    label: "Collaboration"
+    label: "Collaboration",
   },
   {
     name: "Kanban & Sprint Planning",
     type: "Project",
     slug: "https://github.com/Susekh/TaskNest-client",
     project: "github-link",
-    label: "Tasknet"
+    label: "Tasknet",
   },
   {
     name: "Find Waldo",
     type: "Project",
     slug: "https://find-waldo.khilar.me",
     project: "live-link",
-    label: "Game"
+    label: "Game",
   },
   {
     name: "AWS Lambda Deployment",
     type: "Project",
     slug: "https://github.com/Susekh/where-s_waldo",
     project: "github-link",
-    label: "Find Waldo"
+    label: "Find Waldo",
   },
   {
     name: "Real time chatting",
     type: "Project",
     slug: "https://github.com/Susekh/team-sync",
     project: "github-link",
-    label: "TeamSync"
+    label: "TeamSync",
   },
   {
     name: "Pokématch",
     type: "Project",
     slug: "https://codecircuit.khilar.me",
     project: "live-link",
-    label: "Frontend"
+    label: "Frontend",
   },
   {
     name: "Memory Game UI/UX",
     type: "Project",
     slug: "https://github.com/Susekh/PokeMatch",
     project: "github-link",
-    label: "Pokématch"
-  }
+    label: "Pokématch",
+  },
 ];
-
 
 // Utility functions
 const utils = {
@@ -81,14 +80,14 @@ const utils = {
         }, delay - (currentTime - lastExecTime));
       }
     };
-  }
+  },
 };
 
 // Smooth scrolling initialization
 const initLenis = () => {
   const lenis = new Lenis();
   lenis.on("scroll");
-  
+
   const raf = (time) => {
     lenis.raf(time);
     requestAnimationFrame(raf);
@@ -99,13 +98,13 @@ const initLenis = () => {
 // Navigation module
 const Navigation = {
   isNavOpen: false,
-  
+
   init() {
     this.cacheElements();
     this.bindEvents();
     this.initAnimations();
   },
-  
+
   cacheElements() {
     this.navBtn = utils.getElement(".nav-btn");
     this.navHam = utils.getElement(".ri-menu-line");
@@ -115,27 +114,27 @@ const Navigation = {
     this.headings = utils.getElements(".nav-full > div > a");
     this.navLinks = utils.getElements(".nav-portable-nav-links > a");
   },
-  
+
   bindEvents() {
     // Open navigation
     this.navBtn?.addEventListener("click", () => this.openNav());
-    
+
     // Close navigation
     this.crossBtn?.addEventListener("click", () => this.closeNav());
-    this.portableNavLinks.forEach(elem => 
+    this.portableNavLinks.forEach((elem) =>
       elem.addEventListener("click", () => this.closeNav())
     );
-    
+
     // Close on outside click
     document.addEventListener("click", (e) => this.handleOutsideClick(e));
-    
+
     // Hover effects
     this.initHoverEffects();
   },
-  
+
   openNav() {
     if (this.isNavOpen) return;
-    
+
     gsap.to(".nav-portable", {
       x: 0,
       duration: 0.6,
@@ -151,10 +150,10 @@ const Navigation = {
 
     this.isNavOpen = true;
   },
-  
+
   closeNav() {
     if (!this.isNavOpen) return;
-    
+
     gsap.to(".nav-portable", {
       x: "400%",
       duration: 0.3,
@@ -163,7 +162,7 @@ const Navigation = {
 
     this.isNavOpen = false;
   },
-  
+
   handleOutsideClick(event) {
     const isClickInsideNavbar = this.portableNavBar?.contains(event.target);
     const isClickOnToggleButton = this.navBtn?.contains(event.target);
@@ -172,24 +171,24 @@ const Navigation = {
       this.closeNav();
     }
   },
-  
+
   initHoverEffects() {
     // Nav button hover
     if (this.navBtn) {
       this.navBtn.addEventListener("mouseenter", (e) => {
         gsap.to(e.target, { scale: 1.2, duration: 0.5 });
       });
-      
+
       this.navBtn.addEventListener("mouseleave", (e) => {
         gsap.to(e.target, { scale: 1, duration: 0.5, ease: "power1.out" });
       });
     }
-    
+
     // Drag hover effects
     this.initDragHover(this.headings, 0.7, "power1.out", 1, 1);
     this.initDragHover(this.navLinks, 0.1, "power1.out", 0.6, 1);
   },
-  
+
   initDragHover(elements, intensity, ease, duration, scale) {
     elements.forEach((element) => {
       const onMouseMove = (event) => {
@@ -205,7 +204,7 @@ const Navigation = {
           duration: duration,
         });
       };
-      
+
       element.addEventListener("mouseover", () => {
         element.addEventListener("mousemove", onMouseMove);
       });
@@ -222,7 +221,7 @@ const Navigation = {
       });
     });
   },
-  
+
   initAnimations() {
     // Nav button scroll animation
     gsap.from(".nav-btn", {
@@ -234,7 +233,7 @@ const Navigation = {
         toggleActions: "play none none reverse",
       },
     });
-  }
+  },
 };
 
 // Text animation module
@@ -243,22 +242,30 @@ const TextAnimations = {
     this.initScrambleEffects();
     this.initTextRevealAnimations();
   },
-  
+
   initScrambleEffects() {
     const scrambleSelectors = [".scramble", ".scramble-1", ".scramble-2"];
-    scrambleSelectors.forEach(selector => this.initScrambleEffect(selector));
-    
+    scrambleSelectors.forEach((selector) => this.initScrambleEffect(selector));
+
     // Text scramble animations with scroll trigger
     this.textScrambleAnimation(".about-text", ".about-text > span > span", 0);
-    this.textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
+    this.textScrambleAnimation(
+      ".header-para-1",
+      ".header-para-1 > .span-line",
+      1
+    );
     this.textScrambleAnimation(".skills-text", ".skills-text > span > span", 0);
-    this.textScrambleAnimation(".projects-text", ".projects-text > span > span", 0);
+    this.textScrambleAnimation(
+      ".projects-text",
+      ".projects-text > span > span",
+      0
+    );
   },
-  
+
   initScrambleEffect(selector) {
     const scrambleText = utils.getElement(selector);
     if (!scrambleText) return;
-    
+
     const originalText = scrambleText.innerText;
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const duration = 0.5;
@@ -284,17 +291,19 @@ const TextAnimations = {
 
     scrambleText.addEventListener("mouseover", () => {
       if (isScrambling) return;
-      
+
       isScrambling = true;
       scramble(scrambleText);
-      setTimeout(() => { isScrambling = false; }, duration * 1000);
+      setTimeout(() => {
+        isScrambling = false;
+      }, duration * 1000);
     });
   },
-  
+
   textScrambleAnimation(splitText, gsapText, delay) {
     const element = utils.getElement(splitText);
     if (!element) return;
-    
+
     const text = element.textContent.trim();
     const words = text.split(/\s+/);
     element.innerHTML = words
@@ -338,19 +347,19 @@ const TextAnimations = {
       toggleActions: "play none none reset",
     });
   },
-  
+
   initTextRevealAnimations() {
     // Only on desktop
     if (utils.isMobile()) return;
-    
+
     // Can be extended for multiple selectors if needed
     // this.textRevealAnimation(`.about-text-${i}`) for i in range
   },
-  
+
   textRevealAnimation(selector) {
     const element = utils.getElement(selector);
     if (!element) return;
-    
+
     const text = element.textContent.trim();
     const words = text.split(" ");
 
@@ -358,7 +367,10 @@ const TextAnimations = {
       .map((word) => {
         const wrappedChars = word
           .split("")
-          .map((char) => `<span class="char-container"><span class="char-line">${char}</span></span>`)
+          .map(
+            (char) =>
+              `<span class="char-container"><span class="char-line">${char}</span></span>`
+          )
           .join("");
         return `<span class="word-container">${wrappedChars}</span>`;
       })
@@ -377,7 +389,7 @@ const TextAnimations = {
         scrub: 0.5,
       },
     });
-  }
+  },
 };
 
 // Header animations
@@ -386,7 +398,7 @@ const HeaderAnimations = {
     this.initImageReveal();
     this.initHeaderText();
   },
-  
+
   initImageReveal() {
     gsap.from(".img-container > img", {
       y: -500,
@@ -395,7 +407,7 @@ const HeaderAnimations = {
       delay: 2.2,
     });
   },
-  
+
   initHeaderText() {
     gsap.from(".header-para", {
       y: 10,
@@ -403,21 +415,21 @@ const HeaderAnimations = {
       ease: "expo.out",
       delay: 0.5,
     });
-  }
+  },
 };
 
 // Preloader module
 const Preloader = {
   init() {
-    window.addEventListener('load', () => this.handlePreloader());
+    window.addEventListener("load", () => this.handlePreloader());
   },
-  
+
   handlePreloader() {
     const preLoader = utils.getElement(".pre-loader");
     const loaderText = utils.getElement(".pre-loader-text");
-    
+
     if (!preLoader || !loaderText) return;
-    
+
     const loaderContent = [
       "Open it on desktop for best experience",
       "ଜୟ ଜଗନ୍ନାଥ",
@@ -427,7 +439,7 @@ const Preloader = {
       "Hola",
       "Hi",
     ];
-    
+
     let currentIndex = 0;
     const intervalId = setInterval(() => {
       loaderText.textContent = loaderContent[currentIndex];
@@ -442,37 +454,39 @@ const Preloader = {
         ease: "expo.in",
       });
     }, 1000);
-  }
+  },
 };
 
 // Theme toggle module
 const ThemeToggle = {
   init() {
-    document.addEventListener("DOMContentLoaded", () => this.setupThemeToggle());
+    document.addEventListener("DOMContentLoaded", () =>
+      this.setupThemeToggle()
+    );
   },
-  
+
   setupThemeToggle() {
     const toggleButton = utils.getElement("#theme-toggle");
     if (!toggleButton) return;
 
     // Check for saved user preference
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark-mode") {
-      document.body.classList.add("dark-mode");
+    if (savedTheme === "light-mode") {
+      document.body.classList.add("light-mode");
     }
 
     toggleButton.addEventListener("click", () => {
-      const isDarkMode = document.body.classList.contains("dark-mode");
-      
-      if (isDarkMode) {
-        document.body.classList.remove("dark-mode");
+      const isLightMode = document.body.classList.contains("light-mode");
+
+      if (isLightMode) {
+        document.body.classList.remove("light-mode");
         localStorage.setItem("theme", "");
       } else {
-        document.body.classList.add("dark-mode");
-        localStorage.setItem("theme", "dark-mode");
+        document.body.classList.add("light-mode");
+        localStorage.setItem("theme", "light-mode");
       }
     });
-  }
+  },
 };
 
 // Scroll animations module
@@ -482,7 +496,7 @@ const ScrollAnimations = {
     this.initFinalSectionAnimations();
     this.initGalleryAnimations();
   },
-  
+
   initMiscAnimations() {
     // Code box rotation
     gsap.to(".code-box-animated", {
@@ -492,10 +506,10 @@ const ScrollAnimations = {
       repeatDelay: 1,
     });
   },
-  
+
   initFinalSectionAnimations() {
     if (utils.isMobile()) return;
-    
+
     gsap.from(".final-section-gallery", {
       y: 300,
       scrollTrigger: {
@@ -505,7 +519,7 @@ const ScrollAnimations = {
         scrub: 1,
       },
     });
-    
+
     gsap.from(".final-section-quote", {
       scale: 1.5,
       opacity: 0,
@@ -516,7 +530,7 @@ const ScrollAnimations = {
       },
     });
   },
-  
+
   initGalleryAnimations() {
     const galleryTimeline = gsap.timeline({
       scrollTrigger: {
@@ -540,7 +554,7 @@ const ScrollAnimations = {
         scrub: 1,
       },
     });
-  }
+  },
 };
 
 // Project hover effects
@@ -551,17 +565,17 @@ const ProjectHover = {
       this.bindEvents();
     }
   },
-  
+
   cacheElements() {
     this.projects = utils.getElement(".projects");
     this.preview = utils.getElement(".preview");
     this.previewImg = utils.getElement(".preview-img");
   },
-  
+
   hasAllElements() {
     return this.projects && this.preview && this.previewImg;
   },
-  
+
   bindEvents() {
     this.isInside = false;
     this.bgPositions = {
@@ -571,7 +585,7 @@ const ProjectHover = {
     };
 
     window.addEventListener("mousemove", (e) => this.handleMouseMove(e));
-    
+
     Array.from(this.projects.children).forEach((project) => {
       project.addEventListener("mousemove", (e) => {
         this.moveProject(e);
@@ -579,7 +593,7 @@ const ProjectHover = {
       });
     });
   },
-  
+
   handleMouseMove(e) {
     const mouseInside = this.isMouseInsideContainer(e);
 
@@ -587,11 +601,11 @@ const ProjectHover = {
       this.isInside = mouseInside;
       gsap.to(this.preview, {
         scale: this.isInside ? 1 : 0,
-        duration: 0.3
+        duration: 0.3,
       });
     }
   },
-  
+
   isMouseInsideContainer(e) {
     const rect = this.projects.getBoundingClientRect();
     return (
@@ -601,7 +615,7 @@ const ProjectHover = {
       e.clientY <= rect.bottom
     );
   },
-  
+
   moveProject(e) {
     const rect = this.preview.getBoundingClientRect();
     const offsetX = rect.width / 2;
@@ -610,14 +624,14 @@ const ProjectHover = {
     this.preview.style.left = `${e.pageX - offsetX}px`;
     this.preview.style.top = `${e.pageY - offsetY}px`;
   },
-  
+
   moveProjectImg(project) {
     const projectId = project.id;
     gsap.to(this.previewImg, {
       backgroundPosition: this.bgPositions[projectId] || "0 0",
-      duration: 0.4
+      duration: 0.4,
     });
-  }
+  },
 };
 
 // Skills/Awards section
@@ -627,19 +641,19 @@ const SkillsSection = {
     MIDDLE: -80,
     TOP: -160,
   },
-  
+
   init() {
     this.cacheElements();
     this.initState();
     this.populateAwards();
     this.bindEvents();
   },
-  
+
   cacheElements() {
     this.awardsListContainer = utils.getElement(".awards-list");
     this.awardPreview = utils.getElement(".award-preview");
   },
-  
+
   initState() {
     this.lastMousePosition = { x: 0, y: 0 };
     this.activeAward = null;
@@ -647,13 +661,18 @@ const SkillsSection = {
     this.mouseTimeout = null;
     this.isMouseMoving = false;
   },
-  
+
   populateAwards() {
     if (!Array.isArray(data) || !this.awardsListContainer) return;
-    
+
     data.forEach((award) => {
       const awardElement = document.createElement("div");
       awardElement.className = "award";
+      awardElement.style.cursor = "pointer"; 
+
+      awardElement.onclick = () => {
+        window.open(award.slug, "_blank"); 
+      };
       awardElement.innerHTML = `
         <div class="award-wrapper">
           <div class="award-name">
@@ -672,20 +691,23 @@ const SkillsSection = {
       `;
       this.awardsListContainer.appendChild(awardElement);
     });
-    
+
     this.awardsElements = utils.getElements(".award");
   },
-  
+
   bindEvents() {
-    const throttledMouseMove = utils.throttle((e) => this.handleMouseMove(e), 16);
+    const throttledMouseMove = utils.throttle(
+      (e) => this.handleMouseMove(e),
+      16
+    );
     const throttledScroll = utils.throttle(() => this.handleScroll(), 16);
-    
+
     document.addEventListener("mousemove", throttledMouseMove);
     document.addEventListener("scroll", throttledScroll, { passive: true });
-    
+
     this.bindAwardEvents();
   },
-  
+
   handleMouseMove(e) {
     this.lastMousePosition.x = e.clientX;
     this.lastMousePosition.y = e.clientY;
@@ -704,17 +726,17 @@ const SkillsSection = {
 
     this.animatePreview();
   },
-  
+
   handleScroll() {
     if (!this.ticking) {
       requestAnimationFrame(() => this.updateAwards());
       this.ticking = true;
     }
   },
-  
+
   isMouseInsideAwardsList() {
     if (!this.awardsListContainer) return false;
-    
+
     const rect = this.awardsListContainer.getBoundingClientRect();
     return (
       this.lastMousePosition.x >= rect.left &&
@@ -723,7 +745,7 @@ const SkillsSection = {
       this.lastMousePosition.y <= rect.bottom
     );
   },
-  
+
   animatePreview() {
     const isOutside = !this.isMouseInsideAwardsList();
 
@@ -739,22 +761,22 @@ const SkillsSection = {
       });
     }
   },
-  
+
   updateAwards() {
     this.animatePreview();
 
     if (this.activeAward) {
       const rect = this.activeAward.getBoundingClientRect();
-      const isStillOver = (
+      const isStillOver =
         this.lastMousePosition.x >= rect.left &&
         this.lastMousePosition.x <= rect.right &&
         this.lastMousePosition.y >= rect.top &&
-        this.lastMousePosition.y <= rect.bottom
-      );
+        this.lastMousePosition.y <= rect.bottom;
 
       if (!isStillOver) {
         const wrapper = this.activeAward.querySelector(".award-wrapper");
-        const leavingFromTop = this.lastMousePosition.y < rect.top + rect.height / 2;
+        const leavingFromTop =
+          this.lastMousePosition.y < rect.top + rect.height / 2;
         gsap.to(wrapper, {
           y: leavingFromTop ? this.POSITIONS.TOP : this.POSITIONS.BOTTOM,
           duration: 0.4,
@@ -768,12 +790,11 @@ const SkillsSection = {
       if (award === this.activeAward) return;
 
       const rect = award.getBoundingClientRect();
-      const isMouseOver = (
+      const isMouseOver =
         this.lastMousePosition.x >= rect.left &&
         this.lastMousePosition.x <= rect.right &&
         this.lastMousePosition.y >= rect.top &&
-        this.lastMousePosition.y <= rect.bottom
-      );
+        this.lastMousePosition.y <= rect.bottom;
 
       if (isMouseOver && this.isMouseMoving) {
         const wrapper = award.querySelector(".award-wrapper");
@@ -788,10 +809,10 @@ const SkillsSection = {
 
     this.ticking = false;
   },
-  
+
   cleanupOldImages() {
     if (!this.awardPreview) return;
-    
+
     const images = this.awardPreview.querySelectorAll("img");
     if (images.length > 1) {
       const lastImage = images[images.length - 1];
@@ -807,7 +828,7 @@ const SkillsSection = {
       });
     }
   },
-  
+
   bindAwardEvents() {
     this.awardsElements.forEach((award, index) => {
       const wrapper = award.querySelector(".award-wrapper");
@@ -835,7 +856,9 @@ const SkillsSection = {
         const rect = award.getBoundingClientRect();
         const leavingFromTop = e.clientY < rect.top + rect.height / 2;
 
-        currentPosition = leavingFromTop ? this.POSITIONS.TOP : this.POSITIONS.BOTTOM;
+        currentPosition = leavingFromTop
+          ? this.POSITIONS.TOP
+          : this.POSITIONS.BOTTOM;
         gsap.to(wrapper, {
           y: currentPosition,
           duration: 0.4,
@@ -844,10 +867,10 @@ const SkillsSection = {
       });
     });
   },
-  
+
   createPreviewImage(index) {
     if (!this.awardPreview) return;
-    
+
     const img = document.createElement("img");
     img.src = `./imgs/${index + 1}.jpg`;
     img.style.position = "absolute";
@@ -863,7 +886,7 @@ const SkillsSection = {
       duration: 0.4,
       ease: "power2.out",
     });
-  }
+  },
 };
 
 // new skills sec
@@ -874,16 +897,16 @@ const gridItems = document.querySelectorAll(".grid-item");
 const firstItem = document.querySelector(".grid-item");
 
 const highlightcolors = [
-  '#2563EB', // Blue-600
-  '#38BDF8', // Sky-400
-  '#1E3A8A', // Indigo-800
-  '#E11D48', // Rose-600 (bold pink/red)
-  '#F97316', // Orange-500 (accent)
-  '#9333EA', // Purple-600 (lavender contrast)
-  '#0EA5E9', // Cyan-500
-  '#10B981', // Emerald-500 (aqua-green)
-  '#F43F5E', // Pink-500
-  '#3B82F6', // Blue-500
+  "#2563EB", // Blue-600
+  "#38BDF8", // Sky-400
+  "#1E3A8A", // Indigo-800
+  "#E11D48", // Rose-600 (bold pink/red)
+  "#F97316", // Orange-500 (accent)
+  "#9333EA", // Purple-600 (lavender contrast)
+  "#0EA5E9", // Cyan-500
+  "#10B981", // Emerald-500 (aqua-green)
+  "#F43F5E", // Pink-500
+  "#3B82F6", // Blue-500
 ];
 
 gridItems.forEach((item, index) => {
@@ -895,7 +918,9 @@ const moveToElement = (element) => {
     const rect = element.getBoundingClientRect();
     const containerRect = container.getBoundingClientRect();
 
-    highlight.style.transform = `translate(${rect.left - containerRect.left}px, ${rect.top - containerRect.top}px)`;
+    highlight.style.transform = `translate(${
+      rect.left - containerRect.left
+    }px, ${rect.top - containerRect.top}px)`;
     highlight.style.width = `${rect.width}px`;
     highlight.style.height = `${rect.height}px`;
     highlight.style.backgroundColor = element.dataset.color;
@@ -914,16 +939,18 @@ moveToElement(firstItem);
 
 container.addEventListener("mousemove", moveHighlight);
 
-
 // mouse move
 
 const follower = document.querySelector(".mouse-follower");
 
-let mouseX = 0, mouseY = 0;
-let currentX = 0, currentY = 0;
+let mouseX = 0,
+  mouseY = 0;
+let currentX = 0,
+  currentY = 0;
 const speed = 0.2;
 
-let lastX = 0, lastY = 0;
+let lastX = 0,
+  lastY = 0;
 let lastMoveTime = performance.now();
 
 const animate = () => {
@@ -955,14 +982,12 @@ window.addEventListener("mousemove", (e) => {
 
 animate();
 
-
-
 // Main initialization
 const App = {
   init() {
     // Initialize smooth scrolling first
     initLenis();
-    
+
     // Initialize all modules
     Navigation.init();
     TextAnimations.init();
@@ -972,12 +997,12 @@ const App = {
     ScrollAnimations.init();
     ProjectHover.init();
     SkillsSection.init();
-  }
+  },
 };
 
 // Start the application when DOM is ready
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => App.init());
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => App.init());
 } else {
   App.init();
 }
