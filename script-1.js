@@ -314,6 +314,7 @@ textScrambleAnimation(".about-text", ".about-text > span > span", 0);
 textScrambleAnimation(".header-para-1", ".header-para-1 > .span-line", 1);
 
 
+
 function textRevealAnimation(selector) {
   if(window.innerWidth <= 768) return;
   const element = document.querySelector(selector);

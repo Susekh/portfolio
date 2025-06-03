@@ -260,6 +260,7 @@ const TextAnimations = {
       ".projects-text > span > span",
       0
     );
+    this.textScrambleAnimation(".final-section-quote", ".final-section-quote > .span-line", 0);
   },
 
   initScrambleEffect(selector) {
@@ -516,16 +517,6 @@ const ScrollAnimations = {
         trigger: ".final-section-quote",
         start: "top 50%",
         end: "top 20%",
-        scrub: 1,
-      },
-    });
-
-    gsap.from(".final-section-quote", {
-      scale: 1.5,
-      opacity: 0,
-      scrollTrigger: {
-        trigger: ".final-section",
-        start: "top 50%",
         scrub: 1,
       },
     });
