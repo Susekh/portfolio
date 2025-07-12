@@ -72,7 +72,6 @@ body {
     width: 100%;
     padding-top: 8px;
     padding-bottom: 16px;
-    cursor: none;
 }
 
 body {
@@ -656,6 +655,7 @@ header {
 
 .final-section-gallery img {
     width: 30rem;
+    height: 15rem;
     border: 24px solid var(--lines-color-light);
     object-fit: cover;
 }

@@ -3,8 +3,8 @@
     justify-content: center;
     align-items: center;
     color: var(--text-color);
-    margin-top: 12rem;
-    margin-bottom: 12rem;
+    margin-top: 6rem;
+    margin-bottom: 6rem;
 }
 
 .preview-body p {
@@ -75,10 +75,6 @@
     flex: 1;
 }
 
-.service {
-    
-}
-
 
 @media(max-width:900px){
     .location,
@@ -133,7 +129,6 @@
 }
 
 .awards {
-    min-height: 100vh;
     height: max-content;
 }
 
