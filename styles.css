@@ -3,7 +3,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton+SC&family=Noto+Serif+Oriya:wght@400..700&family=Rajdhani:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
-/* Define default light mode styles */
 
 :root {
     --background-color: #0d0d0d;
@@ -856,6 +855,10 @@ footer {
     * {
         font-size: 14px;
         padding: 0;
+    }
+
+    .mouse-follower {
+        display: none;
     }
 
     .code-box-animated {

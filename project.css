@@ -1,287 +1,283 @@
-.preview-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--text-color);
-    margin-top: 6rem;
-    margin-bottom: 6rem;
+.preview-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-color);
+  margin-top: 6rem;
+  margin-bottom: 6rem;
 }
 
 .preview-body p {
-    text-transform: uppercase;
-    font-size: xx-large;
-    font-weight: 800;
-    letter-spacing: -1px;
-    line-height: 0.9;
+  text-transform: uppercase;
+  font-size: xx-large;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 0.9;
 }
 
 .intro {
-    width: 100%;
-    text-align:left;
+  width: 100%;
+  text-align: left;
 }
 
 .preview {
-    position: absolute;
-    width: 300px;
-    height: 120px;
-    overflow: hidden;
-    pointer-events: none;
-    transform-origin: center;
-    z-index: 2;
+  position: absolute;
+  width: 300px;
+  height: 120px;
+  overflow: hidden;
+  pointer-events: none;
+  transform-origin: center;
+  z-index: 2;
 }
 
 .preview-img {
-    width: 100%;
-    height: 100%;
-    background: url(./imgs/preview.png);
-    background-size: cover;
-    background-position: 0 0;
-    pointer-events: none;
+  width: 100%;
+  height: 100%;
+  background: url(./imgs/preview.png);
+  background-size: cover;
+  background-position: 0 0;
+  pointer-events: none;
 }
 
 #header p {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .container {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
 }
 
 .projects {
-    width: 80%;
-    display: flex;
-    flex-direction: column;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
 }
 
 .project {
-    width: 100%;
-    padding: 3em 1em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid gray;
-    cursor: pointer;
+  width: 100%;
+  padding: 3em 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid gray;
+  cursor: pointer;
 }
 
 .project > div {
- flex: 3;
+  flex: 3;
 }
 
 .project div:last-child {
-    flex: 1;
+  flex: 1;
 }
-
-
-@media(max-width:900px){
-    .location,
-    .service {
-        display: none;
-    }
-    .preview-body p {
-        font-size: medium;
-    }
-}
-
 
 /* skills */
 
-.skill-section  img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    will-change: transform;
+.skill-section img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
 }
 
 .projects-text {
-    font-size: large;
-    font-weight: 700;
+  font-size: large;
+  font-weight: 700;
 }
 
-.skill-section  h1 {
-    text-transform: uppercase;
-    font-size: 72px;
-    font-weight: 800;
-    letter-spacing: -1px;
-    line-height: 0.9;
+.skill-section h1 {
+  text-transform: uppercase;
+  font-size: 72px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 0.9;
 }
 
-.skill-sectoin  p{
-    text-transform: uppercase;
-    font-size: 1.5rem;
-    font-weight: 700;
+.skill-sectoin p {
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 
 .skill-section {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
 }
 
-.intro, .outro {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.intro,
+.outro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .awards {
-    height: max-content;
+  height: max-content;
 }
 
 .awards p {
-    padding: 5px 20px;
+  padding: 5px 20px;
 }
 
 .awards-list {
-    border-top: 1px solid var(--text-color);
+  border-top: 1px solid var(--text-color);
 }
 
 .award {
-    height: 80px;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  height: 80px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
 
 .award-wrapper {
-    position: relative;
-    height: 240px;
-    will-change: transform;
-    transform: translateY(-160px);
+  position: relative;
+  height: 240px;
+  will-change: transform;
+  transform: translateY(-160px);
 }
 
-.award-name, .award-project {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 80px;
-    padding: 5px 15px;
-    cursor: pointer;
-    border-bottom: 1px solid var(--text-color);
+.award-name,
+.award-project {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 5px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid var(--text-color);
 }
 
 .award-name {
-    background-color: var(--background-color);
-    color: var(--text-color);
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 .award-project {
-    background-color: var(--custom-blue);
-    color: var(--background-color);
+  background-color: var(--custom-blue);
+  color: var(--background-color);
 }
 
 .award-preview {
-    position: fixed;
-    bottom: 15px;
-    right: 15px;
-    width: 30%;
-    height: 30%;
-    z-index: 2;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  width: 30%;
+  height: 30%;
+  z-index: 2;
 }
-
-@media(max-width:900px){
-    .skill-section h1{
-        font-size: small;
-    }
-}
-
 
 /* new skills */
 
 .skills-text {
-    font-size: 4rem;
-    font-weight: 700;
-    padding-left: 4rem;
+  font-size: 4rem;
+  font-weight: 700;
+  padding-left: 4rem;
 }
 
 .skills-body {
-    background-color: var(--background-color);
+  background-color: var(--background-color);
 }
 
 .skills-container p {
-    text-transform: uppercase;
-    color: var(--text-color);
-    font-size: 13px;
-    font-weight: 500;
+  text-transform: uppercase;
+  color: var(--text-color);
+  font-size: 13px;
+  font-weight: 500;
 }
 
-
 .skills-container {
-    position: relative;
-    width: 100%;
-    height: 100svh;
+  position: relative;
+  width: 100%;
+  height: 100svh;
 }
 
 .grid {
-    position: relative;
-    margin: 0  auto;
-    width: 90%;
-    height: 60%;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--text-color);
+  position: relative;
+  margin: 0 auto;
+  width: 90%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--text-color);
 }
 
-.grid-row, .grid-item {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
+.grid-row,
+.grid-item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }
 
 .grid-row {
-    border-bottom:1px solid var(--text-color);
+  border-bottom: 1px solid var(--text-color);
 }
 
 .grid-item:not(:last-child) {
-    border-right: 1px solid var(--text-color);
+  border-right: 1px solid var(--text-color);
 }
 
 .grid-item p {
-    position: relative;
-    z-index: 2;
+  position: relative;
+  z-index: 2;
 }
 
 .highlight {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: var(--text-color);
-    pointer-events: none;
-    transition: all 0.25s ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: var(--text-color);
+  pointer-events: none;
+  transition: all 0.25s ease;
 }
 
-@media (max-width : 900px) {
-    .container {
-        height: 100%;
-        min-height: 100svh;
-        padding: 25vh 0;
-    }
+@media (max-width: 900px) {
+  .location,
+  .service {
+    display: none;
+  }
+  .preview-body p {
+    font-size: medium;
+  }
 
-    .skills-text {
-        margin-left: 0;
-    }
+  .skill-section h1 {
+    font-size: small;
+  }
 
-    .grid {
-        height: max-content;
-    }
+  .container {
+    height: 100%;
+    min-height: 100svh;
+    padding: 25vh 0;
+  }
 
-    .grid-row {
-        flex-direction: column;
-    }
+  .skills-text {
+    margin-left: 0;
+  }
 
-    .grid-item {
-        width: 100%;
-        padding: 10px 0;
-    }
+  .grid {
+    height: max-content;
+  }
 
-    .grid-item:not(:last-child) {
-        border-right: none;
-        border-bottom: 1px solid var(--text-color);
-    }
+  .grid-row {
+    flex-direction: column;
+  }
+
+  .grid-item {
+    width: 100%;
+    padding: 10px 0;
+  }
+
+  .grid-item:not(:last-child) {
+    border-right: none;
+    border-bottom: 1px solid var(--text-color);
+  }
 }
-
